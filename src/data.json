@@ -1,0 +1,24 @@
+[
+  {
+    "id": 0,
+    "name": "Beyliss",
+    "desc": "Maremma",
+    "age": 2,
+    "image": "beyliss.jpg",
+    "likedDogs": [],
+    "superlikedDogs": [],
+    "dislikedDogs": [],
+    "likedBy": []
+  },
+  {
+    "id": 1,
+    "name": "Kim",
+    "desc": "German Shephard",
+    "age": 2,
+    "image": "kim.jpg",
+    "likedDogs": [],
+    "superlikedDogs": [],
+    "dislikedDogs": [],
+    "likedBy": []
+  }
+]
