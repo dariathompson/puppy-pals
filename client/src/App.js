@@ -25,8 +25,8 @@ const App = () => {
 
   return(
     <div className="app">
-      <Header />
-
+      {/* <Header /> */}
+      <h1>Doggy Dates</h1>
       {/* {dogs[1] ? (
         <Dog
           key={dogs[1].id}
