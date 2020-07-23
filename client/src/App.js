@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import {BrowserRouter as Router,Route} from "react-router-dom";
+
+import { Provider } from "react-redux";
+import store from "./store";
+
 import './App.css';
 import Dog from './components/Dog';
 import Lonely from './components/Lonely';
@@ -30,31 +34,16 @@ const App = () => {
   // }
 
   return(
-
-    <Router>
+    <Provider store={store}>
+      <Router>
         <div className="App">
           <Navbar />
           <Route exact path="/" component={Landing} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
-
-      {/* <h1>Doggy Dates</h1> */}
-      {/* {dogs[1] ? (
-        <Dog
-        key={dogs[1].id}
-        dog={dogs[1]}
-        modifySuperficialChoices={modifySuperficialChoices}
-        likedDogs={likedDogs}
-        />
-        ) : (
-          <Lonely
-          activeDogImage={dogs[activeDog].image}
-          likedDogs={likedDogs}
-          superlikedDogs={superlikedDogs}
-          />
-        )} */}
         </div>
       </Router>
+    </Provider>
   );
 };
 

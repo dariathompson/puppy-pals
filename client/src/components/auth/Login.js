@@ -4,7 +4,7 @@ class Login extends Component {
   constructor() {
     super();
     this.state = {
-      email: "",
+      username: "",
       password: "",
       errors: {},
     };
@@ -16,11 +16,11 @@ class Login extends Component {
   };
   onSubmit = (e) => {
     e.preventDefault();
-    const userData = {
-      email: this.state.email,
+    const dogData = {
+      username: this.state.username,
       password: this.state.password,
     };
-    console.log(userData);
+    console.log(dogData);
   };
   render() {
     const { errors } = this.state;
@@ -52,12 +52,12 @@ class Login extends Component {
               <div className="input-field col s12">
                 <input
                   onChange={this.onChange}
-                  value={this.state.email}
-                  error={errors.email}
-                  id="email"
-                  type="email"
+                  value={this.state.username}
+                  error={errors.username}
+                  id="username"
+                  type="text"
                 />
-                <label htmlFor="email"> Email </label>
+                <label htmlFor="username"> Username </label>
               </div>
               <div className="input-field col s12">
                 <input
