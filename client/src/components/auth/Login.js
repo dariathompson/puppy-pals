@@ -55,7 +55,7 @@ class Login extends Component {
                   value={this.state.username}
                   error={errors.username}
                   id="username"
-                  type="username"
+                  type="text"
                 />
                 <label htmlFor="username"> Username </label>
               </div>

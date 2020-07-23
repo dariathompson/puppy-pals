@@ -5,6 +5,9 @@ class Register extends Component {
     super();
     this.state = {
       name: "",
+      username: "",
+      age: "",
+      breed: "",
       email: "",
       password: "",
       password2: "",
@@ -18,13 +21,16 @@ class Register extends Component {
   };
   onSubmit = (e) => {
     e.preventDefault();
-    const newUser = {
+    const newDog = {
       name: this.state.name,
+      username: this.state.username,
+      age: this.state.age,
+      breed: this.state.breed,
       email: this.state.email,
       password: this.state.password,
       password2: this.state.password2,
     };
-    console.log(newUser);
+    console.log(newDog);
   };
   render() {
     const { errors } = this.state;
@@ -58,6 +64,36 @@ class Register extends Component {
                   type="text"
                 />
                 <label htmlFor="name"> Name </label>
+              </div>
+              <div className="input-field col s12">
+                <input
+                  onChange={this.onChange}
+                  value={this.state.username}
+                  error={errors.username}
+                  id="username"
+                  type="text"
+                />
+                <label htmlFor="username"> Username </label>
+              </div>
+              <div className="input-field col s12">
+                <input
+                  onChange={this.onChange}
+                  value={this.state.age}
+                  error={errors.age}
+                  id="age"
+                  type="text"
+                />
+                <label htmlFor="age"> Age </label>
+              </div>
+              <div className="input-field col s12">
+                <input
+                  onChange={this.onChange}
+                  value={this.state.breed}
+                  error={errors.breed}
+                  id="breed"
+                  type="text"
+                />
+                <label htmlFor="breed"> Breed </label>
               </div>
               <div className="input-field col s12">
                 <input
