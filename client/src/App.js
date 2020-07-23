@@ -7,6 +7,8 @@ import data from './data.json'
 
 import Navbar from "./components/layout/Navbar";
 import Landing from "./components/layout/Landing";
+import Register from "./components/auth/Register";
+import Login from "./components/auth/Login";
 
 
 const App = () => {
@@ -33,8 +35,8 @@ const App = () => {
         <div className="App">
           <Navbar />
           <Route exact path="/" component={Landing} />
-          {/* <Route exact path="/register" component={Register} /> */}
-          {/* <Route exact path="/login" component={Login} /> */}
+          <Route exact path="/register" component={Register} />
+          <Route exact path="/login" component={Login} />
 
       {/* <h1>Doggy Dates</h1> */}
       {/* {dogs[1] ? (
