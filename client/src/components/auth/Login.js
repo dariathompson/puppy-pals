@@ -1,5 +1,10 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { loginDog } from "../../actions/authActions";
+import classnames from "classnames";
+
 class Login extends Component {
   constructor() {
     super();
@@ -9,6 +14,25 @@ class Login extends Component {
       errors: {},
     };
   }
+
+  componentDidMount() {
+    // If logged in and user navigates to Login page, should redirect them to dashboard
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push("/dashboard");
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.auth.isAuthenticated) {
+      this.props.history.push("/dashboard"); // push user to dashboard when they login
+    }
+    if (nextProps.errors) {
+      this.setState({
+        errors: nextProps.errors,
+      });
+    }
+  }
+
   onChange = (e) => {
     this.setState({
       [e.target.id]: e.target.value,
@@ -20,8 +44,9 @@ class Login extends Component {
       username: this.state.username,
       password: this.state.password,
     };
-    console.log(dogData);
+    this.props.loginDog(dogData); // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
   };
+
   render() {
     const { errors } = this.state;
     return (
@@ -32,10 +57,9 @@ class Login extends Component {
           }}
           className="row">
           <div className="col s8 offset-s2">
-            <Link to="/" className="btn-flat waves-effect">
-              <i className="material-icons left"> keyboard_backspace </i> Back
-              to home
-            </Link>
+            {/* <Link to="/" className="btn-flat waves-effect">
+              Back to home
+            </Link> */}
             <div
               className="col s12"
               style={{
@@ -56,8 +80,15 @@ class Login extends Component {
                   error={errors.username}
                   id="username"
                   type="text"
+                  className={classnames("", {
+                    invalid: errors.username || errors.usernamenotfound,
+                  })}
                 />
                 <label htmlFor="username"> Username </label>
+                <span className="red-text">
+                  {errors.username}
+                  {errors.usernamenotfound}
+                </span>
               </div>
               <div className="input-field col s12">
                 <input
@@ -66,8 +97,15 @@ class Login extends Component {
                   error={errors.password}
                   id="password"
                   type="password"
+                  className={classnames("", {
+                    invalid: errors.password || errors.passwordincorrect,
+                  })}
                 />
                 <label htmlFor="password"> Password </label>
+                <span className="red-text">
+                  {errors.password}
+                  {errors.passwordincorrect}
+                </span>
               </div>
               <div
                 className="col s12"
@@ -93,4 +131,14 @@ class Login extends Component {
     );
   }
 }
-export default Login;
+
+Login.propTypes = {
+  loginDog: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired,
+};
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  errors: state.errors,
+});
+export default connect(mapStateToProps, { loginDog })(Login);

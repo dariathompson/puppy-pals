@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import {BrowserRouter as Router,Route} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import jwt_decode from "jwt-decode";
+import setAuthToken from "./utils/setAuthToken";
+import { setCurrentDog, logoutDog } from "./actions/authActions";
 
 import { Provider } from "react-redux";
 import store from "./store";
@@ -7,33 +10,37 @@ import store from "./store";
 import './App.css';
 import Dog from './components/Dog';
 import Lonely from './components/Lonely';
-import data from './data.json'
 
 import Navbar from "./components/layout/Navbar";
 import Landing from "./components/layout/Landing";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
+import PrivateRoute from "./components/private-route/PrivateRoute";
+import Dashboard from "./components/dashboard/Dashboard";
+
+// Check for token to keep user logged in
+if (localStorage.jwtToken) {
+  // Set auth token header auth
+  const token = localStorage.jwtToken;
+  setAuthToken(token);
+  // Decode token and get user info and exp
+  const decoded = jwt_decode(token);
+  // Set user and isAuthenticated
+  store.dispatch(setCurrentDog(decoded));
+// Check for expired token
+  const currentTime = Date.now() / 1000; // to get in milliseconds
+  if (decoded.exp < currentTime) {
+    // Logout user
+    store.dispatch(logoutDog());
+    // Redirect to login
+    window.location.href = "./login";
+  }
+}
 
 
 const App = () => {
-  const [dogs, setDogs] = useState(data);
-  const [likedDogs, setLikedDogs] = useState([]);
-  const [superlikedDogs, setSuperlikedDogs] = useState([]);
-  const [dislikedDogs, setDislikedDogs] = useState([]);
-  const activeDog = 0;
 
-  // switch(action) {
-  //   case 'ADD_TO_LIKED_DOG':
-  //     break;
-  //   case 'ADD_TO_DISLIKED_DOG':
-  //     break;
-  //   case 'ADD_TO_SUPERLIKED_DOG':
-
-  //   default:
-  //     return dogs;
-  // }
-
-  return(
+  return (
     <Provider store={store}>
       <Router>
         <div className="App">
@@ -41,6 +48,9 @@ const App = () => {
           <Route exact path="/" component={Landing} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
+          <Switch>
+            <PrivateRoute exact path="/dashboard" component={Dashboard} />
+          </Switch>
         </div>
       </Router>
     </Provider>

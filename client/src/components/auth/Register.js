@@ -1,5 +1,10 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { registerDog } from "../../actions/authActions";
+import classnames from "classnames";
+
 class Register extends Component {
   constructor() {
     super();
@@ -14,6 +19,22 @@ class Register extends Component {
       errors: {},
     };
   }
+
+  componentDidMount() {
+    // If logged in and user navigates to Register page, should redirect them to dashboard
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push("/dashboard");
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({
+        errors: nextProps.errors,
+      });
+    }
+  }
+
   onChange = (e) => {
     this.setState({
       [e.target.id]: e.target.value,
@@ -30,18 +51,19 @@ class Register extends Component {
       password: this.state.password,
       password2: this.state.password2,
     };
-    console.log(newDog);
+
+    this.props.registerDog(newDog, this.props.history);
   };
+
   render() {
     const { errors } = this.state;
     return (
       <div className="container">
         <div className="row">
           <div className="col s8 offset-s2">
-            <Link to="/" className="btn-flat waves-effect">
-              <i className="material-icons left"> keyboard_backspace </i> Back
-              to home
-            </Link>
+            {/* <Link to="/" className="btn-flat waves-effect">
+             Back to home
+            </Link> */}
             <div
               className="col s12"
               style={{
@@ -62,8 +84,12 @@ class Register extends Component {
                   error={errors.name}
                   id="name"
                   type="text"
+                  className={classnames("", {
+                    invalid: errors.name,
+                  })}
                 />
                 <label htmlFor="name"> Name </label>
+                <span className="red-text"> {errors.name} </span>
               </div>
               <div className="input-field col s12">
                 <input
@@ -72,8 +98,12 @@ class Register extends Component {
                   error={errors.username}
                   id="username"
                   type="text"
+                  className={classnames("", {
+                    invalid: errors.username,
+                  })}
                 />
                 <label htmlFor="username"> Username </label>
+                <span className="red-text"> {errors.username} </span>
               </div>
               <div className="input-field col s12">
                 <input
@@ -82,8 +112,12 @@ class Register extends Component {
                   error={errors.age}
                   id="age"
                   type="text"
+                  className={classnames("", {
+                    invalid: errors.age,
+                  })}
                 />
                 <label htmlFor="age"> Age </label>
+                <span className="red-text"> {errors.age} </span>
               </div>
               <div className="input-field col s12">
                 <input
@@ -92,8 +126,12 @@ class Register extends Component {
                   error={errors.breed}
                   id="breed"
                   type="text"
+                  className={classnames("", {
+                    invalid: errors.breed,
+                  })}
                 />
                 <label htmlFor="breed"> Breed </label>
+                <span className="red-text"> {errors.breed} </span>
               </div>
               <div className="input-field col s12">
                 <input
@@ -102,8 +140,12 @@ class Register extends Component {
                   error={errors.email}
                   id="email"
                   type="email"
+                  className={classnames("", {
+                    invalid: errors.email,
+                  })}
                 />
                 <label htmlFor="email"> Email </label>
+                <span className="red-text"> {errors.email} </span>
               </div>
               <div className="input-field col s12">
                 <input
@@ -112,8 +154,12 @@ class Register extends Component {
                   error={errors.password}
                   id="password"
                   type="password"
+                  className={classnames("", {
+                    invalid: errors.password,
+                  })}
                 />
                 <label htmlFor="password"> Password </label>
+                <span className="red-text"> {errors.password} </span>
               </div>
               <div className="input-field col s12">
                 <input
@@ -122,8 +168,12 @@ class Register extends Component {
                   error={errors.password2}
                   id="password2"
                   type="password"
+                  className={classnames("", {
+                    invalid: errors.password2,
+                  })}
                 />
                 <label htmlFor="password2"> Confirm Password </label>
+                <span className="red-text"> {errors.password2} </span>
               </div>
               <div
                 className="col s12"
@@ -149,4 +199,20 @@ class Register extends Component {
     );
   }
 }
-export default Register;
+
+Register.propTypes = {
+  registerDog: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+});
+
+export default connect(
+  mapStateToProps, {
+    registerDog
+  }
+)(withRouter(Register));
