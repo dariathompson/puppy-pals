@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -22,15 +23,10 @@ class Login extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.auth.isAuthenticated) {
-      this.props.history.push("/dashboard"); // push user to dashboard when they login
-    }
+  static getDerivedStateFromProps(nextProps) {
     if (nextProps.errors) {
-      this.setState({
-        errors: nextProps.errors,
-      });
-    }
+      return { errors: nextProps.errors };
+    } else return null; // Triggers no change in the state
   }
 
   onChange = (e) => {
@@ -49,6 +45,8 @@ class Login extends Component {
 
   render() {
     const { errors } = this.state;
+    if (this.props.auth.isAuthenticated) return <Redirect to="/dashboard" />;
+
     return (
       <div className="container">
         <div

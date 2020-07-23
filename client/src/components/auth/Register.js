@@ -27,12 +27,10 @@ class Register extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  static getDerivedStateFromProps(nextProps) {
     if (nextProps.errors) {
-      this.setState({
-        errors: nextProps.errors,
-      });
-    }
+      return { errors: nextProps.errors};
+    } else return null; // Triggers no change in the state
   }
 
   onChange = (e) => {

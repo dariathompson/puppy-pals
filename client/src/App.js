@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
@@ -8,8 +8,8 @@ import { Provider } from "react-redux";
 import store from "./store";
 
 import './App.css';
-import Dog from './components/Dog';
-import Lonely from './components/Lonely';
+// import Dog from './components/Dog';
+// import Lonely from './components/Lonely';
 
 import Navbar from "./components/layout/Navbar";
 import Landing from "./components/layout/Landing";
