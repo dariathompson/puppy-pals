@@ -7,7 +7,7 @@ import {
   DOG_LOADING
 } from "./types";
 // Register dog
-export const registerdog = (dogData, history) => dispatch => {
+export const registerDog = (dogData, history) => dispatch => {
   axios
     .post("/api/dogs/register", dogData)
     .then(res => history.push("/login")) // re-direct to login on successful register
