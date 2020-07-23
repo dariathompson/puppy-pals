@@ -6,10 +6,10 @@ const keys = require("../../config/keys");
 // Load input validation
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
-// Load User model
+// Load Dog model
 const Dog = require("../../models/Dog")
 
-// @route POST api/users/register
+// @route POST api/dogs/register
 // @desc Register user
 // @access Public
 router.post("/register", (req, res) => {
@@ -54,7 +54,7 @@ router.post("/register", (req, res) => {
 });
 
 
-// @route POST api/users/login
+// @route POST api/dogs/login
 // @desc Login user and return JWT token
 // @access Public
 router.post("/login", (req, res) => {
