@@ -17,6 +17,7 @@ import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
 import Profile from "./components/profile/Profile";
+import Show from "./components/show/Show";
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -50,6 +51,7 @@ const App = () => {
           <Route exact path="/login" component={Login} />
           <Switch>
             <PrivateRoute exact path="/profile" component={Profile} />
+            <PrivateRoute exact path="/show" component={Show} />
           </Switch>
         </div>
       </Router>

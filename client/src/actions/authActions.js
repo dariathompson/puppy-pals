@@ -10,7 +10,7 @@ import {
 export const registerDog = (dogData, history) => dispatch => {
   axios
     .post("/api/dogs/register", dogData)
-    .then(res => history.push("/login")) // re-direct to login on successful register
+    .then(res => history.push("/profile")) // re-direct to profile on successful register
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
@@ -41,6 +41,23 @@ export const loginDog = dogData => dispatch => {
       })
     );
 };
+
+export const showDogs = dogUsername => dispatch => {
+  axios.get('/api/dogs/show', dogUsername)
+  .then((res) => {
+    const data = res.data;
+    console.log('Received dogs')
+    console.log(data)
+  })
+  .catch(err =>
+    dispatch({
+      type: GET_ERRORS,
+      payload: err.response.data
+    })
+  );
+}
+
+
 // Set logged in dog
 export const setCurrentDog = decoded => {
   return {
