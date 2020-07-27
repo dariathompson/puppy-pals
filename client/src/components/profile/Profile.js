@@ -14,11 +14,13 @@ class Profile extends Component {
         <div className="row">
           <div className="col s12 center-align">
             <h4>
-              <b>Hey there,</b> {dog.name.split(" ")[0]}
+              <b>Hey there,</b> {dog.name}
               <p className="flow-text grey-text text-darken-1">
                 You are logged into
                 <span style={{ fontFamily: "monospace" }}> Doggy</span> dates 👏
               </p>
+              <p>age: {dog.age}</p>
+              <p>breed: {dog.breed}</p>
             </h4>
             <button
               style={{
