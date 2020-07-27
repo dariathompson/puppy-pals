@@ -115,4 +115,19 @@ router.post("/login", (req, res) => {
 });
 
 
+router.get("/show", (req, res) => {
+    const my_username = req.body.username;
+    // find all dogs but current
+    Dog.find({ username: { $ne: my_username } }).then(data => {
+        res.send(data);
+    })
+    .catch(err => {
+        res.status(500).send({
+        message:
+            err.message || "Some error occurred while retrieving dogs."
+        });
+    });
+});
+
+
 module.exports = router;
