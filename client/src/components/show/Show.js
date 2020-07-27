@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import axios from 'axios'
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { showDogs } from "../../actions/authActions";
@@ -9,14 +8,17 @@ class Show extends Component {
   constructor() {
     super();
     this.state = {
-      username: "beyliss",
+      username: "Maxy",
       dogs: [],
       errors: {}
     };
   }
 
   componentDidMount = () => {
-    this.props.showDogs(this.state.username);
+    const dogData = {
+      username: this.state.username,
+    };
+    this.props.showDogs(dogData);
   }
 
   // getDogs = () => {

@@ -42,19 +42,22 @@ export const loginDog = dogData => dispatch => {
     );
 };
 
-export const showDogs = dogUsername => dispatch => {
-  axios.get('/api/dogs/show', dogUsername)
-  .then((res) => {
-    const data = res.data;
-    console.log('Received dogs')
-    console.log(data)
-  })
-  .catch(err =>
-    dispatch({
-      type: GET_ERRORS,
-      payload: err.response.data
+export const showDogs = dogData => dispatch => {
+  axios
+    .get("/api/dogs/show", {
+      params: "Maxy"
     })
-  );
+    .then((res) => {
+      const data = res.data;
+      console.log("Received dogs");
+      console.log(data);
+    })
+    .catch((err) =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data,
+      })
+    );
 }
 
 
