@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutDog } from "../../actions/authActions";
-class Dashboard extends Component {
+class Profile extends Component {
   onLogoutClick = (e) => {
     e.preventDefault();
     this.props.logoutDog();
@@ -37,11 +37,11 @@ class Dashboard extends Component {
     );
   }
 }
-Dashboard.propTypes = {
+Profile.propTypes = {
   logoutDog: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
 };
 const mapStateToProps = (state) => ({
   auth: state.auth,
 });
-export default connect(mapStateToProps, { logoutDog })(Dashboard);
+export default connect(mapStateToProps, { logoutDog })(Profile);
