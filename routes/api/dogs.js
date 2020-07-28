@@ -116,9 +116,7 @@ router.post("/login", (req, res) => {
 
 
 router.get("/show", (req, res) => {
-    console.log(req.params);
-    const my_username = req.body.username;
-    console.log(my_username);
+    const my_username = req.query.username;
     // find all dogs but current
     Dog.find({ username: { $ne: my_username } }).then(data => {
         res.send(data);

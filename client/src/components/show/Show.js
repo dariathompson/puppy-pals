@@ -10,7 +10,7 @@ class Show extends Component {
     this.state = {
       username: "Maxy",
       dogs: [],
-      errors: {}
+      // errors: {}
     };
   }
 
