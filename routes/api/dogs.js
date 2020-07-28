@@ -88,7 +88,8 @@ router.post("/login", (req, res) => {
                     id: dog.id,
                     name: dog.name,
                     age: dog.age,
-                    breed: dog.breed
+                    breed: dog.breed,
+                    username: dog.username
                 };
                 // Sign token
                 jwt.sign(
@@ -116,6 +117,7 @@ router.post("/login", (req, res) => {
 
 
 router.get("/show", (req, res) => {
+    console.log(req.query)
     const my_username = req.query.username;
     // find all dogs but current
     Dog.find({ username: { $ne: my_username } }).then(data => {

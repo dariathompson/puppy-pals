@@ -46,7 +46,7 @@ export const showDogs = dogData => dispatch => {
   axios
     .get("/api/dogs/show", {
       params: {
-        username: 'Maxy'
+        username: dogData.username
       }
     })
     .then((res) => {

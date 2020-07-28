@@ -8,30 +8,19 @@ class Show extends Component {
   constructor() {
     super();
     this.state = {
-      username: "Maxy",
       dogs: [],
       // errors: {}
     };
   }
 
   componentDidMount = () => {
+    const { dog } = this.props.auth;
+    console.log(dog)
     const dogData = {
-      username: this.state.username,
+      username: dog.username,
     };
     this.props.showDogs(dogData);
   }
-
-  // getDogs = () => {
-  //   axios.get('http://localhost:5000/api/dogs/show', this.state.username)
-  //   .then((response) => {
-  //     const data = response.data;
-  //     this.setState({dogs: data})
-  //     console.log('Received dogs')
-  //   })
-  //   .catch(() => {
-  //     console.log('Error')
-  //   })
-  // }
 
 
   render() {
