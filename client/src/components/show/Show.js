@@ -5,31 +5,35 @@ import { showDogs } from "../../actions/dogActions";
 
 class Show extends Component {
 
-  constructor() {
-    super();
-    this.state = {
-      dogs: [],
-      // errors: {}
-    };
-  }
-
   componentDidMount = () => {
     const { dog } = this.props.auth;
-    console.log(dog)
     const dogData = {
       username: dog.username,
     };
     this.props.showDogs(dogData);
   }
 
-
+  
+  
   render() {
-    console.log("Hello")
-    console.log(this.state)
-    return(
-      <h1>Dogs</h1>
-      
-    )
+    const dogs = this.props.dogs.dogs.map((dog) => {
+        return (
+          <div key={dog.username} className="row volunteer-cards">
+            <div className="col-6">  
+              <h4>{dog.name}</h4>
+              <p>{dog.breed}</p>
+              <p>{dog.age}</p>
+            </div>
+        </div>
+        )
+      })
+
+    return (
+      <div>
+        <h1>Dogs</h1>
+        {dogs}
+      </div>
+    );
 
   }
 }
@@ -38,8 +42,11 @@ Show.propTypes = {
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
 };
-const mapStateToProps = (state) => ({
-  auth: state.auth,
-  errors: state.errors,
-});
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth,
+    errors: state.errors,
+    dogs: state.dogs
+  }
+};
 export default connect(mapStateToProps, { showDogs })(Show);

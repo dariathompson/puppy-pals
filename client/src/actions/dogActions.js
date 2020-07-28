@@ -1,6 +1,7 @@
 import axios from "axios";
 import {
-  GET_ERRORS
+  GET_ERRORS,
+  SHOW_DOGS
 } from "./types";
 
 export const showDogs = dogData => dispatch => {
@@ -12,8 +13,7 @@ export const showDogs = dogData => dispatch => {
     })
     .then((res) => {
       const data = res.data;
-      console.log("Received dogs");
-      console.log(data);
+      dispatch(showDog(data))
     })
     .catch((err) =>
       dispatch({
@@ -22,3 +22,10 @@ export const showDogs = dogData => dispatch => {
       })
     );
 }
+
+export const showDog = (data) => {
+  return {
+    type: SHOW_DOGS,
+    payload: data,
+  };
+};
