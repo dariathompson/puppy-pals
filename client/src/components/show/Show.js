@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { showDogs } from "../../actions/authActions";
+import { showDogs } from "../../actions/dogActions";
 
 class Show extends Component {
 
