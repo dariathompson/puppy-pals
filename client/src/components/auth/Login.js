@@ -19,7 +19,7 @@ class Login extends Component {
   componentDidMount() {
     // If logged in and user navigates to Login page, should redirect them to profile
     if (this.props.auth.isAuthenticated) {
-      this.props.history.push("/profile");
+      this.props.history.push("/show");
     }
   }
 
@@ -45,7 +45,7 @@ class Login extends Component {
 
   render() {
     const { errors } = this.state;
-    if (this.props.auth.isAuthenticated) return <Redirect to="/profile" />;
+    if (this.props.auth.isAuthenticated) return <Redirect to="/show" />;
 
     return (
       <div className="container">

@@ -120,7 +120,7 @@ router.get("/show", (req, res) => {
     console.log(req.query)
     const my_username = req.query.username;
     // find all dogs but current
-    Dog.find({ username: { $ne: my_username } }).then(data => {
+    Dog.aggregate([{ $match: { username: { $ne: my_username } } }, { $sample: { size: 1 }}]).then(data => {
         res.send(data);
     })
     .catch(err => {
