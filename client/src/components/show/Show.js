@@ -19,9 +19,10 @@ class Show extends Component {
     console.log('not for me bro');
   };
 
-  like = (e) => {
-    e.preventDefault();
-    console.log('I wanna play!');
+  like(e, dog){
+    e.preventDefault()
+      console.log(`I wanna play with ${dog}`);
+    
   };
 
   render() {
@@ -38,8 +39,8 @@ class Show extends Component {
               Dislike
             </button>
             <button
-              onClick={this.like}
-              className="btn btn-large waves-effect waves-light hoverable blue accent-3">
+              onClick={(e) => {this.like(e, dog.username)}}
+              className="btn btn-large waves-effect waves-light hoverable green accent-3">
               Like
             </button>
           </div>
