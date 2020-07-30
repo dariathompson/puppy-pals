@@ -131,5 +131,20 @@ router.get("/show", (req, res) => {
     });
 });
 
+router.post("/like", (req, res) => {
+    console.log(req.query)
+    console.log(req.body.username)
+
+    Dog.findOneAndUpdate({username: req.query.username},
+        {$addToSet: { likes: req.body.username}}).then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+            message:
+                err.message || "Some error occurred while liking a dog."
+            });
+        });
+})
 
 module.exports = router;
