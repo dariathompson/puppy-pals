@@ -131,5 +131,18 @@ router.get("/show", (req, res) => {
     });
 });
 
+router.post("/like", (req, res) => {
+    console.log(req.query)
+    console.log(req.body.username)
+
+    Dog.updateOne({username: req.query.username},
+        {'$push': { likes: {username: req.body.username }}})
+        .catch(err => {
+            res.status(500).send({
+            message:
+                err.message || "Some error occurred while liking a dog."
+            });
+        });
+})
 
 module.exports = router;
