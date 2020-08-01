@@ -135,10 +135,8 @@ router.post("/like", (req, res) => {
     console.log(req.query)
     console.log(req.body.username)
 
-    Dog.findOneAndUpdate({username: req.query.username},
-        {$addToSet: { likes: req.body.username}}).then(data => {
-            res.send(data);
-        })
+    Dog.updateOne({username: req.query.username},
+        {'$push': { likes: {username: req.body.username }}})
         .catch(err => {
             res.status(500).send({
             message:
