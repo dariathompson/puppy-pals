@@ -132,11 +132,10 @@ router.get("/show", (req, res) => {
 });
 
 router.post("/like", (req, res) => {
-    console.log(req.query)
-    console.log(req.body.username)
+    console.log(req.body)
 
-    Dog.updateOne({username: req.query.username},
-        {'$push': { likes: {username: req.body.username }}})
+    Dog.updateOne({username: req.body.likee},
+        {'$push': { likes: {username: req.body.liker }}})
         .then(response => {
             res.status(200).send(response);
           })
