@@ -19,10 +19,16 @@ class Show extends Component {
     console.log('not for me bro');
   };
 
-  like(e, dog){
-    e.preventDefault()
-      console.log(`I wanna play with ${dog}`);
-    
+  like(e, likee){
+    e.preventDefault();
+    const { dog } = this.props.auth;
+    console.log(`I wanna play with ${likee}`);
+    const likeData = {
+      likee: likee,
+      liker: dog.username,
+    }
+    console.log(likeData);
+    // this.props.like(likeData);
   };
 
   render() {

@@ -137,6 +137,9 @@ router.post("/like", (req, res) => {
 
     Dog.updateOne({username: req.query.username},
         {'$push': { likes: {username: req.body.username }}})
+        .then(response => {
+            res.status(200).send(response);
+          })
         .catch(err => {
             res.status(500).send({
             message:
