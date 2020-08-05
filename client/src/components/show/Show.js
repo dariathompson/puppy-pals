@@ -7,12 +7,16 @@ import { Link } from "react-router-dom";
 
 class Show extends Component {
   componentDidMount = () => {
+    this.show()
+  };
+
+  show(){
     const { dog } = this.props.auth;
     const dogData = {
       username: dog.username,
     };
     this.props.showDogs(dogData);
-  };
+}
 
   dislikeDog(e, dislikee){
     e.preventDefault();
@@ -23,6 +27,7 @@ class Show extends Component {
     };
     console.log(dislikeData);
     this.props.dislike(dislikeData);
+    this.show();
   };
  
   likeDog(e, likee){
@@ -34,6 +39,7 @@ class Show extends Component {
     }
     console.log(likeData);
     this.props.like(likeData);
+    this.show();
   };
 
   render() {
