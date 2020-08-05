@@ -27,5 +27,6 @@ const DogSchema = new Schema({
     required: true,
   },
   likes: [{ username: String }],
+  dislikes: [{ username: String }],
 });
 module.exports = Dog = mongoose.model("dogs", DogSchema);

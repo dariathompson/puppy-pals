@@ -134,8 +134,8 @@ router.get("/show", (req, res) => {
 router.post("/like", (req, res) => {
     console.log(req.body)
 
-    Dog.updateOne({username: req.body.likee},
-        {'$push': { likes: {username: req.body.liker }}})
+    Dog.updateOne({username: req.body.liker},
+        {'$push': { likes: {username: req.body.likee }}})
         .then(response => {
             res.status(200).send(response);
           })
@@ -145,6 +145,22 @@ router.post("/like", (req, res) => {
                 err.message || "Some error occurred while liking a dog."
             });
         });
-})
+});
+
+router.post("/dislike", (req, res) => {
+    console.log('backend');
+  console.log(req.body);
+
+  Dog.updateOne({ username: req.body.disliker },
+    {'$push': { dislikes: {username: req.body.dislikee} } })
+    .then((response) => {
+      res.status(200).send(response);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "Some error occurred while disliking a dog.",
+      });
+    });
+});
 
 module.exports = router;

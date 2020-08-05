@@ -35,6 +35,20 @@ export const like = likeData => dispatch => {
     );
 }
 
+export const dislike = (dislikeData) => (dispatch) => {
+  axios
+    .post("/api/dogs/dislike", dislikeData)
+    .then((res) => {
+      console.log(res.status);
+    })
+    .catch((err) =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data,
+      })
+    );
+};
+
 export const showDog = (data) => {
   return {
     type: SHOW_DOGS,
