@@ -120,7 +120,11 @@ router.get("/show", (req, res) => {
     console.log(req.query)
     const my_username = req.query.username;
     // find all dogs but current
-    Dog.aggregate([{ $match: { username: { $ne: my_username } } }, { $sample: { size: 1 }}]).then(data => {
+    Dog.aggregate([{ $match: {$and: 
+        [{username: { $ne: my_username }},
+        {likes: { $nin: [my_username] }},
+        {dislikes: { $nin: [my_username] }}
+        ]}}, { $sample: { size: 1 }}]).then(data => {
         res.send(data);
     })
     .catch(err => {
@@ -131,11 +135,12 @@ router.get("/show", (req, res) => {
     });
 });
 
+
 router.post("/like", (req, res) => {
     console.log(req.body)
 
-    Dog.updateOne({username: req.body.liker},
-        {'$push': { likes: {username: req.body.likee }}})
+    Dog.updateOne({username: req.body.likee},
+        {'$push': { likes: {username: req.body.liker }}})
         .then(response => {
             res.status(200).send(response);
           })
@@ -151,8 +156,8 @@ router.post("/dislike", (req, res) => {
     console.log('backend');
   console.log(req.body);
 
-  Dog.updateOne({ username: req.body.disliker },
-    {'$push': { dislikes: {username: req.body.dislikee} } })
+  Dog.updateOne({ username: req.body.dislikee },
+    {'$push': { dislikes: {username: req.body.disliker} } })
     .then((response) => {
       res.status(200).send(response);
     })
