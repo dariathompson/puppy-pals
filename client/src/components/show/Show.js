@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { showDogs } from "../../actions/dogActions";
+import { showDogs, like } from "../../actions/dogActions";
 import { Link } from "react-router-dom";
 
 
@@ -19,10 +19,15 @@ class Show extends Component {
     console.log('not for me bro');
   };
 
-  like(e, dog){
-    e.preventDefault()
-      console.log(`I wanna play with ${dog}`);
-    
+  likeDog(e, likee){
+    e.preventDefault();
+    const { dog } = this.props.auth;
+    const likeData = {
+      likee: likee,
+      liker: dog.username,
+    }
+    console.log(likeData);
+    this.props.like(likeData);
   };
 
   render() {
@@ -39,7 +44,7 @@ class Show extends Component {
               Dislike
             </button>
             <button
-              onClick={(e) => {this.like(e, dog.username)}}
+              onClick={(e) => {this.likeDog(e, dog.username)}}
               className="btn btn-large waves-effect waves-light hoverable green accent-3">
               Like
             </button>
@@ -68,6 +73,7 @@ class Show extends Component {
 }
 Show.propTypes = {
   showDogs: PropTypes.func.isRequired,
+  like: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
 };
@@ -78,4 +84,4 @@ const mapStateToProps = (state) => {
     dogs: state.dogs
   }
 };
-export default connect(mapStateToProps, { showDogs })(Show);
+export default connect(mapStateToProps, { showDogs, like })(Show);

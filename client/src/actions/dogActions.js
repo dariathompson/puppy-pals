@@ -23,6 +23,18 @@ export const showDogs = dogData => dispatch => {
     );
 }
 
+export const like = likeData => dispatch => {
+  axios
+    .post("/api/dogs/like", likeData)
+    .then(res => {console.log(res.status)})
+    .catch((err) =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data,
+      })
+    );
+}
+
 export const showDog = (data) => {
   return {
     type: SHOW_DOGS,
