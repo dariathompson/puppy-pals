@@ -116,56 +116,43 @@ router.post("/login", (req, res) => {
 });
 
 
+
 router.get("/show", (req, res) => {
-    console.log(req.query)
     const my_username = req.query.username;
     // find all dogs but current
-    Dog.aggregate([{ $match: {$and: 
-        [{username: { $ne: my_username }},
-        {likes: { $nin: [my_username] }},
-        {dislikes: { $nin: [my_username] }}
+
+    // 1. find me - instatiate me
+
+    const current_dog = Dog.findOne({my_username})
+    console.log(current_dog.username)
+
+    Dog.aggregate([{ $match: {$and:
+        [{_id: { $ne: dog._id }},
+        {_id: { $nin: dog.likes }},
+        {_id: { $nin: dog.dislikes }}
         ]}}, { $sample: { size: 1 }}]).then(data => {
         res.send(data);
-    })
-    .catch(err => {
-        res.status(500).send({
-        message:
-            err.message || "Some error occurred while retrieving dogs."
-        });
+    }).catch((err) => {
+    res.status(500).send({
+        message: err.message || "Some error occurred while retrieving dogs.",
+    });
     });
 });
 
 
 router.post("/like", (req, res) => {
-    console.log(req.body)
 
-    Dog.updateOne({username: req.body.likee},
-        {'$push': { likes: {username: req.body.liker }}})
-        .then(response => {
-            res.status(200).send(response);
-          })
-        .catch(err => {
-            res.status(500).send({
-            message:
-                err.message || "Some error occurred while liking a dog."
-            });
-        });
+    const liker = Dog.find({username: req.body.liker});
+    const likee = Dog.find({username: req.body.likee});
+
+    liker.likes.push(likee._id);
 });
 
 router.post("/dislike", (req, res) => {
-    console.log('backend');
-  console.log(req.body);
+    const disliker = Dog.find({ username: req.body.disliker });
+    const dislikee = Dog.find({ username: req.body.dislikee });
 
-  Dog.updateOne({ username: req.body.dislikee },
-    {'$push': { dislikes: {username: req.body.disliker} } })
-    .then((response) => {
-      res.status(200).send(response);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: err.message || "Some error occurred while disliking a dog.",
-      });
-    });
+    disliker.dislikes.push(dislikee._id);
 });
 
 module.exports = router;
