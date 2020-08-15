@@ -1,68 +1,84 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Doggie Dates
 
-## Available Scripts
+Is your doggy feeling lonely, sad, or just missing that special somebody? 
+Why not get them on Doggie Dates and they'll be meeting that next adorable play date before you know it!
 
-In the project directory, you can run:
+Match with other dogs based on their Size, Age, Breed and dashing good looks!
 
-### `yarn start`
+## Table of content
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- [Installation](#installation)
+- [Database](#database)
+- [Running the application](#running-the-application)
+- [Tech stack](#tech-stack)
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Installation
 
-### `yarn test`
+### Backend
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Follow these steps to install the required dependencies:
 
-### `yarn build`
+1. In the root of the project type the following in your terminal:
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+$ npm install
+```
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+That's it for the backend!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Frontend
 
-### `yarn eject`
+Follow these steps to install required dependencies:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+1. From the root of the project, cd into client and type the following in your terminal:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+$ npm install
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Great! Your full-stack is ready!
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Database
 
-## Learn More
+You will need to sign up to MongoDB and create a cluster.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Once you have created a cluster, you will need to find what the connection URI is.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Click on connect when viewing your cluster and a model should pop up with 3 options. click on "Connect your application" to see your MongoURI.
 
-### Code Splitting
+You will need to create an environment variable.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+1. Create a .env file in the root of the project
+2. Creae an Envrionment called ATLAS_URI with your MongoURI - Like this: ATLAS_URI="[ENTER_YOUR_MONGOURI_HERE]"
 
-### Analyzing the Bundle Size
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+## Running the application
 
-### Making a Progressive Web App
+To run the Server and application at the same time:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+```
+$ npm run dev
+```
 
-### Advanced Configuration
+and That's it! Now feel free to play around with the application on localhost 3000.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+## Planning
 
-### Deployment
+This was a pair project completed by Two Makers Academy Graduates:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+- [Daria Thompson](https://github.com/dariathompson)
+- [Patrick Oliver](https://github.com/poliver24)
 
-### `yarn build` fails to minify
+The aim of this project was to work together to build our skills on the MERN Stack (MongoDB, Express, React, Node), and to further out proficiency in React and Redux. 
+Both being newcomers to MongoDB and NoSQL we saw this as the perfect opportunity to cover some knowledge gaps on some of widely used technology. 
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+It helps that we also both love Dogs!
+
+## Tech stack
+
+- JavaScript
+- React
+- Redux
+- Node
+- Express
+- MongoDB
