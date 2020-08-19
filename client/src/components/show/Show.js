@@ -11,6 +11,7 @@ class Show extends Component {
   };
 
   show() {
+    console.log('show');
     const { dog } = this.props.auth;
     const dogData = {
       username: dog.username,
@@ -24,8 +25,9 @@ class Show extends Component {
       dislikee: dislikee,
       disliker: dog.username,
     };
-    this.props.dislike(dislikeData);
-    this.show();
+    const dislike_response = await this.props.dislike(dislikeData);
+    this.show(dislike_response)
+    // this.show();
   }
 
   async likeDog(likee) {
@@ -34,8 +36,9 @@ class Show extends Component {
       likee: likee,
       liker: dog.username,
     };
-    this.props.like(likeData);
-    this.show();
+    console.log('start of like');
+    const like_response = await this.props.like(likeData);
+    this.show(like_response);
   }
 
   render() {
@@ -51,14 +54,14 @@ class Show extends Component {
             <p>{dog.age}</p>
             <button
               onClick={() => {
-                this.dislikeDog(dog.username).then(this.show());
+                this.dislikeDog(dog.username);
               }}
               className="btn btn-large waves-effect waves-light hoverable red accent-3">
               Dislike
             </button>
             <button
               onClick={() => {
-                this.likeDog(dog.username).then(this.show());
+                this.likeDog(dog.username);
               }}
               className="btn btn-large waves-effect waves-light hoverable green accent-3">
               Like
