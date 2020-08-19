@@ -3,6 +3,10 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { showDogs, like, dislike } from "../../actions/dogActions";
 import { Link } from "react-router-dom";
+import "./Show.css";
+
+import dislike_img from "../../assets/dislike.svg";
+import like_img from "../../assets/like.svg";
 
 
 class Show extends Component {
@@ -42,37 +46,41 @@ class Show extends Component {
   }
 
   render() {
+
     if (this.props.dogs.dogs.length === 0){
       return (<div><h2>No more dogs</h2></div>)
     }else{
     const dogs = this.props.dogs.dogs.map((dog) => {
       return (
-        <div key={dog.username} className="row volunteer-cards">
+        <div key={dog.username} class="card">
           <div className="col-6">
-            <h4>{dog.name}</h4>
+            <h4>
+              <strong>{dog.name}</strong>, <small>{dog.age}</small>
+            </h4>
             <p>{dog.breed}</p>
-            <p>{dog.age}</p>
-            <button
-              onClick={() => {
-                this.dislikeDog(dog.username);
-              }}
-              className="btn btn-large waves-effect waves-light hoverable red accent-3">
-              Dislike
-            </button>
-            <button
-              onClick={() => {
-                this.likeDog(dog.username);
-              }}
-              className="btn btn-large waves-effect waves-light hoverable green accent-3">
-              Like
-            </button>
+            {/* <p>{dog.age}</p> */}
+            <hr class="new1"/>
+            <div class="tinder--buttons">
+              <button
+                onClick={() => {
+                  this.dislikeDog(dog.username);
+                }}>
+                <img src={dislike_img} alt="Dislike" />
+              </button>
+              <button
+                onClick={() => {
+                  this.likeDog(dog.username);
+                }}>
+                <img src={like_img} alt="Like" />
+              </button>
+            </div>
           </div>
         </div>
       );
     });
     return (
-      <div className="container center-align">
-        <h1>Dogs</h1>
+      <div class="main-container">
+        {/* <h1>Dogs</h1> */}
         {dogs}
         <Link
           to="/profile"
