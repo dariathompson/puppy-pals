@@ -116,51 +116,55 @@ router.post("/login", (req, res) => {
 });
 
 
-router.get("/show", (req, res) => {
-    console.log(req.query)
-    const my_username = req.query.username;
-    // find all dogs but current
-    Dog.aggregate([{ $match: { username: { $ne: my_username } } }, { $sample: { size: 1 }}]).then(data => {
+router.get("/show", async (req, res) => {
+  try {
+    const dog = await Dog.findOne({username: req.query.username});
+
+    Dog.aggregate([{ $match: {$and:
+        [{_id: { $ne: dog._id }},
+        {_id: { $nin: dog.likes.map(x => x.dogID) }},
+        {_id: { $nin: dog.dislikes.map(x => x.dogID) }}
+        ]}}, { $sample: { size: 1 }}]).then(data => {
         res.send(data);
     })
-    .catch(err => {
-        res.status(500).send({
-        message:
-            err.message || "Some error occurred while retrieving dogs."
-        });
-    });
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send({message: "server error"});
+    }
 });
 
-router.post("/like", (req, res) => {
-    console.log(req.body)
 
-    Dog.updateOne({username: req.body.liker},
-        {'$push': { likes: {username: req.body.likee }}})
-        .then(response => {
-            res.status(200).send(response);
-          })
-        .catch(err => {
-            res.status(500).send({
-            message:
-                err.message || "Some error occurred while liking a dog."
-            });
-        });
+
+router.post("/like", async (req, res) => {
+
+    try {
+        const liker = await Dog.findOne({username: req.body.liker});
+        const likee = await Dog.findOne({username: req.body.likee});
+    
+        dog = await Dog.findOneAndUpdate({_id: liker._id}, { $addToSet: { likes: {dogID: likee._id}}})
+        return res.status(200).json({ dog, likes: dog.likes });
+
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server error");
+    }
+
 });
 
-router.post("/dislike", (req, res) => {
-    console.log('backend');
-  console.log(req.body);
+router.post("/dislike", async (req, res) => {
+    try {
+        const disliker = await Dog.findOne({username: req.body.disliker});
+        const dislikee = await Dog.findOne({username: req.body.dislikee});
+    
+        // liker.likes.push(likee._id);
 
-  Dog.updateOne({ username: req.body.disliker },
-    {'$push': { dislikes: {username: req.body.dislikee} } })
-    .then((response) => {
-      res.status(200).send(response);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: err.message || "Some error occurred while disliking a dog.",
-      });
-    });
+        dog = await Dog.findOneAndUpdate({_id: disliker._id}, { $addToSet: { dislikes: {dogID: dislikee._id}}})
+            return res.status(200).json({ dog, dislikes: dog.dislikes });
+
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server error");
+    }
 });
 
 module.exports = router;

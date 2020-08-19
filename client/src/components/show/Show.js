@@ -7,42 +7,41 @@ import { Link } from "react-router-dom";
 
 class Show extends Component {
   componentDidMount = () => {
-    this.show()
+    this.show();
   };
 
-  show(){
+  show() {
     const { dog } = this.props.auth;
     const dogData = {
       username: dog.username,
     };
     this.props.showDogs(dogData);
-}
+  }
 
-  dislikeDog(e, dislikee){
-    e.preventDefault();
+  async dislikeDog(dislikee) {
     const { dog } = this.props.auth;
     const dislikeData = {
       dislikee: dislikee,
       disliker: dog.username,
     };
-    console.log(dislikeData);
     this.props.dislike(dislikeData);
     this.show();
-  };
- 
-  likeDog(e, likee){
-    e.preventDefault();
+  }
+
+  async likeDog(likee) {
     const { dog } = this.props.auth;
     const likeData = {
       likee: likee,
       liker: dog.username,
-    }
-    console.log(likeData);
+    };
     this.props.like(likeData);
     this.show();
-  };
+  }
 
   render() {
+    if (this.props.dogs.dogs.length === 0){
+      return (<div><h2>No more dogs</h2></div>)
+    }else{
     const dogs = this.props.dogs.dogs.map((dog) => {
       return (
         <div key={dog.username} className="row volunteer-cards">
@@ -51,15 +50,15 @@ class Show extends Component {
             <p>{dog.breed}</p>
             <p>{dog.age}</p>
             <button
-              onClick={(e) => {
-                this.dislikeDog(e, dog.username);
+              onClick={() => {
+                this.dislikeDog(dog.username).then(this.show());
               }}
               className="btn btn-large waves-effect waves-light hoverable red accent-3">
               Dislike
             </button>
             <button
-              onClick={(e) => {
-                this.likeDog(e, dog.username);
+              onClick={() => {
+                this.likeDog(dog.username).then(this.show());
               }}
               className="btn btn-large waves-effect waves-light hoverable green accent-3">
               Like
@@ -68,7 +67,6 @@ class Show extends Component {
         </div>
       );
     });
-
     return (
       <div className="container center-align">
         <h1>Dogs</h1>
@@ -86,6 +84,7 @@ class Show extends Component {
       </div>
     );
   }
+}
 }
 Show.propTypes = {
   showDogs: PropTypes.func.isRequired,
