@@ -117,35 +117,66 @@ router.post("/login", (req, res) => {
 
 
 
-router.get("/show", (req, res) => {
-    const my_username = req.query.username;
-    // find all dogs but current
+// router.get("/show", (req, res) => {
+//     const my_username = req.query.username;
+//     console.log(my_username);
+//     // find all dogs but current
 
-    // 1. find me - instatiate me
+//     // 1. find me - instatiate me
 
-    const current_dog = Dog.findOne({my_username})
-    console.log(current_dog.username)
+//     const current_dog = Dog.findOne({username: 'beyliss'});
+//     console.log(current_dog)
+
+//     Dog.aggregate([{ $match: {$and:
+//         [{_id: { $ne: current_dog._id }},
+//         {_id: { $nin: current_dog.likes }},
+//         {_id: { $nin: current_dog.dislikes }}
+//         ]}}, { $sample: { size: 1 }}]).then(data => {
+//         res.send(data);
+//     }).catch((err) => {
+//     res.status(500).send({
+//         message: err.message || "Some error occurred while retrieving dogs.",
+//     });
+//     });
+// });
+
+
+
+router.get("/show", async (req, res) => {
+  try {
+    const dog = await Dog.findOne({username: req.query.username});
 
     Dog.aggregate([{ $match: {$and:
         [{_id: { $ne: dog._id }},
-        {_id: { $nin: dog.likes }},
-        {_id: { $nin: dog.dislikes }}
+        {likes.dogID: { $nin: dog._id }},
+        {dislikes.dogID: { $nin: dog._id }}
         ]}}, { $sample: { size: 1 }}]).then(data => {
         res.send(data);
-    }).catch((err) => {
-    res.status(500).send({
-        message: err.message || "Some error occurred while retrieving dogs.",
-    });
-    });
+    })
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send({message: "server error"});
+    }
 });
 
 
-router.post("/like", (req, res) => {
 
-    const liker = Dog.find({username: req.body.liker});
-    const likee = Dog.find({username: req.body.likee});
+router.post("/like", async (req, res) => {
 
-    liker.likes.push(likee._id);
+    try {
+        const liker = await Dog.findOne({username: req.body.liker});
+        const likee = await Dog.findOne({username: req.body.likee});
+    
+        // liker.likes.push(likee._id);
+
+        dog = await Dog.findOneAndUpdate({_id: liker._id}, { $addToSet: { likes: {dogID: likee._id}}})
+            return res.status(200).json({ dog, likes: dog.likes });
+
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server error");
+    }
+
 });
 
 router.post("/dislike", (req, res) => {

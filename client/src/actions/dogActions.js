@@ -13,6 +13,7 @@ export const showDogs = dogData => dispatch => {
     })
     .then((res) => {
       const data = res.data;
+      console.log(data);
       dispatch(showDog(data))
     })
     .catch((err) =>

@@ -28,14 +28,12 @@ const DogSchema = new Schema({
   },
   likes: [
     {
-      type: Schema.Types.ObjectId,
-      ref: "Dog",
+      dogID: { type: Schema.Types.ObjectId, ref: "dog" },
     },
   ],
   dislikes: [
     {
-      type: Schema.Types.ObjectId,
-      ref: "Dog",
+      dogID: { type: Schema.Types.ObjectId, ref: "dog" },
     },
   ],
 });
