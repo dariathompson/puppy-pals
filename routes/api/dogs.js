@@ -148,8 +148,8 @@ router.get("/show", async (req, res) => {
 
     Dog.aggregate([{ $match: {$and:
         [{_id: { $ne: dog._id }},
-        {likes.dogID: { $nin: dog._id }},
-        {dislikes.dogID: { $nin: dog._id }}
+        {_id: { $nin: dog.likes.map(x => x.dogID) }},
+        {_id: { $nin: dog.dislikes.map(x => x.dogID) }}
         ]}}, { $sample: { size: 1 }}]).then(data => {
         res.send(data);
     })
@@ -179,11 +179,20 @@ router.post("/like", async (req, res) => {
 
 });
 
-router.post("/dislike", (req, res) => {
-    const disliker = Dog.find({ username: req.body.disliker });
-    const dislikee = Dog.find({ username: req.body.dislikee });
+router.post("/dislike", async (req, res) => {
+    try {
+        const disliker = await Dog.findOne({username: req.body.disliker});
+        const dislikee = await Dog.findOne({username: req.body.dislikee});
+    
+        // liker.likes.push(likee._id);
 
-    disliker.dislikes.push(dislikee._id);
+        dog = await Dog.findOneAndUpdate({_id: disliker._id}, { $addToSet: { dislikes: {dogID: dislikee._id}}})
+            return res.status(200).json({ dog, dislikes: dog.dislikes });
+
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server error");
+    }
 });
 
 module.exports = router;
