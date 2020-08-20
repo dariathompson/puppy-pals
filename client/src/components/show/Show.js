@@ -15,7 +15,6 @@ class Show extends Component {
   };
 
   show() {
-    console.log('show');
     const { dog } = this.props.auth;
     const dogData = {
       username: dog.username,
@@ -40,7 +39,6 @@ class Show extends Component {
       likee: likee,
       liker: dog.username,
     };
-    console.log('start of like');
     const like_response = await this.props.like(likeData);
     this.show(like_response);
   }

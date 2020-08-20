@@ -49,7 +49,7 @@ Click on connect when viewing your cluster and a model should pop up with 3 opti
 You will need to create an environment variable.
 
 1. Create a .env file in the root of the project
-2. Creae an Envrionment called ATLAS_URI with your MongoURI - Like this: ATLAS_URI="[ENTER_YOUR_MONGOURI_HERE]"
+2. Create an Envrionment called ATLAS_URI with your MongoURI - Like this: ATLAS_URI="[ENTER_YOUR_MONGOURI_HERE]"
 
 
 ## Running the application

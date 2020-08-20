@@ -36,5 +36,10 @@ const DogSchema = new Schema({
       dogID: { type: Schema.Types.ObjectId, ref: "dog" },
     },
   ],
+  matches: [
+    {
+      dogID: { type: Schema.Types.ObjectId, ref: "dog" },
+    },
+  ],
 });
 module.exports = Dog = mongoose.model("dogs", DogSchema);

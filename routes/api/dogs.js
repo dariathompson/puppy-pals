@@ -123,7 +123,8 @@ router.get("/show", async (req, res) => {
     Dog.aggregate([{ $match: {$and:
         [{_id: { $ne: dog._id }},
         {_id: { $nin: dog.likes.map(x => x.dogID) }},
-        {_id: { $nin: dog.dislikes.map(x => x.dogID) }}
+        {_id: { $nin: dog.dislikes.map(x => x.dogID) }},
+        {_id: { $nin: dog.matches.map(x => x.dogID) }}
         ]}}, { $sample: { size: 1 }}]).then(data => {
         res.send(data);
     })
@@ -134,16 +135,20 @@ router.get("/show", async (req, res) => {
 });
 
 
-
 router.post("/like", async (req, res) => {
 
     try {
         const liker = await Dog.findOne({username: req.body.liker});
         const likee = await Dog.findOne({username: req.body.likee});
     
-        dog = await Dog.findOneAndUpdate({_id: liker._id}, { $addToSet: { likes: {dogID: likee._id}}})
-        return res.status(200).json({ dog, likes: dog.likes });
-
+        if(likee.likes.map(x => x.dogID).includes(liker._id)){
+            dog1 = await Dog.findOneAndUpdate({_id: liker._id}, { $addToSet: { matches: {dogID: likee._id}}});
+            dog2 = await Dog.findOneAndUpdate({_id: likee._id}, { $addToSet: { matches: {dogID: liker._id}}});
+            // res.send("Match");
+        }else {
+            dog = await Dog.findOneAndUpdate({_id: liker._id}, { $addToSet: { likes: {dogID: likee._id}}});
+            return res.status(200).json({ dog, likes: dog.likes });
+        }
     } catch (err) {
         console.error(err.message);
         res.status(500).send("Server error");

@@ -30,7 +30,6 @@ export const like = likeData => async (dispatch) => {
       payload: err.response.data,
     });
   }
-  console.log('end of like');
 };
 
 export const dislike = dislikeData => async (dispatch) => {
