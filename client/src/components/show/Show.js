@@ -10,9 +10,15 @@ import like_img from "../../assets/like.svg";
 
 
 class Show extends Component {
+  constructor() {
+    super();
+    this.state = { match: null };
+  }
+
   componentDidMount = () => {
     this.show();
   };
+
 
   show() {
     const { dog } = this.props.auth;
@@ -40,14 +46,17 @@ class Show extends Component {
       liker: dog.username,
     };
     const like_response = await this.props.like(likeData);
+    if(like_response === "Match"){
+      console.log("Yayy match");
+      this.setState({match: likee})
+    }
     this.show(like_response);
   }
 
   render() {
-
-    if (this.props.dogs.dogs.length === 0){
-      return (<div><h2>No more dogs</h2></div>)
-    }else{
+    // if (this.props.dogs.dogs.length === 0){
+    //   return (<div><h2>No more dogs</h2></div>)
+    // }else{
     const dogs = this.props.dogs.dogs.map((dog) => {
       return (
         <div key={dog.username} class="card">
@@ -77,7 +86,15 @@ class Show extends Component {
       );
     });
     return (
+      
       <div class="main-container">
+        { this.state.match && (
+        <div className="match-container">
+          <h2>Its a match</h2>
+          <button className="btn btn-large waves-effect waves-light hoverable blue accent-3" onClick={() => {this.setState({match: null})}}>Next</button>
+        </div>
+        
+      ) }
         {/* <h1>Dogs</h1> */}
         {dogs}
         <Link
@@ -90,10 +107,13 @@ class Show extends Component {
           className="btn btn-large waves-effect waves-light hoverable blue accent-3">
           Profile
         </Link>
+      
+      
       </div>
     );
+    
   }
-}
+  
 }
 Show.propTypes = {
   showDogs: PropTypes.func.isRequired,

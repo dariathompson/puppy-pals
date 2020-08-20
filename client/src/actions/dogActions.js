@@ -23,7 +23,8 @@ export const showDogs = dogData => async (dispatch) => {
 
 export const like = likeData => async (dispatch) => {
   try {
-    await axios.post("/api/dogs/like", likeData);
+    const res = await axios.post("/api/dogs/like", likeData);
+    return res.data;
   } catch (err) {
     dispatch({
       type: GET_ERRORS,

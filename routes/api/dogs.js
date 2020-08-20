@@ -144,7 +144,7 @@ router.post("/like", async (req, res) => {
         if(likee.likes.map(x => x.dogID).includes(liker._id)){
             dog1 = await Dog.findOneAndUpdate({_id: liker._id}, { $addToSet: { matches: {dogID: likee._id}}});
             dog2 = await Dog.findOneAndUpdate({_id: likee._id}, { $addToSet: { matches: {dogID: liker._id}}});
-            // res.send("Match");
+            res.send("Match");
         }else {
             dog = await Dog.findOneAndUpdate({_id: liker._id}, { $addToSet: { likes: {dogID: likee._id}}});
             return res.status(200).json({ dog, likes: dog.likes });
