@@ -34,7 +34,7 @@ class Matches extends Component {
       );
     });
     return (
-      <div className="container">
+      <div className="main-container">
         <h1>Matches</h1>
         {matches}
         <Link

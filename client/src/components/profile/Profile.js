@@ -31,9 +31,22 @@ class Profile extends Component {
                   width: "140px",
                   borderRadius: "3px",
                   letterSpacing: "1.5px",
+                  marginRight: "5px"
                 }}
                 className="btn btn-large waves-effect waves-light hoverable red accent-3">
                 Match
+              </Link>
+         
+              <Link
+                to="/matches"
+                style={{
+                  width: "140px",
+                  borderRadius: "3px",
+                  letterSpacing: "1.5px",
+                  marginLeft: "5px"
+                }}
+                className="btn btn-large waves-effect waves-light hoverable green accent-3">
+                Matches
               </Link>
             </div>
             <div>

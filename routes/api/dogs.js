@@ -181,7 +181,6 @@ router.get("/matches", async (req, res) => {
         for (const match of dog.matches) {
           const match_dog = await Dog.findOne({_id: match.dogID})
           matches.push(match_dog)
-          console.log(matches);
         }
         return res.send( matches );
 
