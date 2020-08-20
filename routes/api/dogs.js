@@ -172,4 +172,23 @@ router.post("/dislike", async (req, res) => {
     }
 });
 
+router.get("/matches", async (req, res) => {
+  try {
+        const dog = await Dog.findOne({ username: req.query.username });
+
+        var matches = [];
+
+        for (const match of dog.matches) {
+          const match_dog = await Dog.findOne({_id: match.dogID})
+          matches.push(match_dog)
+          console.log(matches);
+        }
+        return res.send( matches );
+
+      } catch (err) {
+    console.error(err.message);
+    res.status(500).send({ message: "server error" });
+  }
+});
+
 module.exports = router;
