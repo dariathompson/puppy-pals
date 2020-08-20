@@ -20,10 +20,10 @@ class Matches extends Component {
   }
 
   render() {
-
+    console.log(this.props)
     const matches = this.props.dogs.matches.map((match) => {
       return (
-        <div key={match.username} class="card">
+        <div key={match.username} className="card">
           <div className="col-6">
             <h4>
               <strong>{match.name}</strong>, <small>{match.age}</small>
@@ -34,7 +34,7 @@ class Matches extends Component {
       );
     });
     return (
-      <div>
+      <div className="container">
         <h1>Matches</h1>
         {matches}
         <Link
@@ -63,7 +63,7 @@ const mapStateToProps = (state) => {
   return {
     auth: state.auth,
     errors: state.errors,
-    matches: state.matches
+    dogs: state.dogs
   }
 };
 export default connect(mapStateToProps, { showMatches })(Matches);
