@@ -59,15 +59,15 @@ class Show extends Component {
     // }else{
     const dogs = this.props.dogs.dogs.map((dog) => {
       return (
-        <div key={dog.username} class="card">
+        <div key={dog.username} className="card">
           <div className="col-6">
             <h4>
               <strong>{dog.name}</strong>, <small>{dog.age}</small>
             </h4>
             <p>{dog.breed}</p>
             {/* <p>{dog.age}</p> */}
-            <hr class="new1"/>
-            <div class="tinder--buttons">
+            <hr className="new1"/>
+            <div className="tinder--buttons">
               <button
                 onClick={() => {
                   this.dislikeDog(dog.username);
@@ -87,7 +87,7 @@ class Show extends Component {
     });
     return (
       
-      <div class="main-container">
+      <div className="main-container">
         { this.state.match && (
         <div className="match-container">
           <h2>Its a match</h2>

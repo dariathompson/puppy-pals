@@ -1,6 +1,7 @@
-import { SHOW_DOGS } from "../actions/types";
+import { SHOW_DOGS, SHOW_MATCHES } from "../actions/types";
 const initState = {
-  dogs: []
+  dogs: [],
+  matches: []
 };
 
 const dogReducer = (state = initState, action) => {
@@ -9,6 +10,11 @@ const dogReducer = (state = initState, action) => {
       return {
         ...state, 
         dogs: action.payload
+      };
+    case SHOW_MATCHES:
+      return {
+        ...state, 
+        matches: action.payload
       };
       default:
         return state;
