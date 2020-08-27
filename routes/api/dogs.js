@@ -9,6 +9,46 @@ const validateLoginInput = require("../../validation/login");
 // Load Dog model
 const Dog = require("../../models/Dog")
 
+var fs = require("fs"); 
+var path = require("path"); 
+var multer = require("multer");
+const { log } = require("console");
+
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname + "/uploads"));
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
+});
+
+var upload = multer({ storage: storage })
+
+router.post('/image', upload.single('file'), async (req, res) => { 
+  
+    try {
+        var dog = req.body.dog_id
+        var obj = {
+            data: fs.readFileSync(
+            path.join(__dirname + "/uploads/" + req.file.originalname)
+            ),
+            contentType: "image/png"
+        };
+
+        console.log(obj)
+        
+        dog = await Dog.updateOne({ _id: dog }, { $set: { photo: obj }});
+        return res.status(200).json({ dog });
+
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server error");
+    }
+
+}); 
+
+
 // @route POST api/dogs/register
 // @desc Register user
 // @access Public
@@ -87,6 +127,7 @@ router.post("/login", (req, res) => {
                 const payload = {
                     id: dog.id,
                     name: dog.name,
+                    photo: dog.photo,
                     age: dog.age,
                     breed: dog.breed,
                     username: dog.username
@@ -181,6 +222,7 @@ router.get("/matches", async (req, res) => {
         for (const match of dog.matches) {
           const match_dog = await Dog.findOne({_id: match.dogID})
           matches.push(match_dog)
+          console.log(matches);
         }
         return res.send( matches );
 
