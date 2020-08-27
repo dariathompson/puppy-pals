@@ -29,6 +29,7 @@ class Matches extends Component {
               <strong>{match.name}</strong>, <small>{match.age}</small>
             </h4>
             <p>{match.breed}</p>
+             <a className="btn" href={"mailto:" + match.email}>Message</a>
           </div>
         </div>
       );
