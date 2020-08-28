@@ -5,19 +5,19 @@ import {
   SHOW_MATCHES
 } from "./types";
 
-export const showDogs = dogData => async (dispatch) => {
+export const showDogs = (dogData) => async (dispatch) => {
   try {
     const res = await axios.get("/api/dogs/show", {
       params: {
-        username: dogData.username
-      }
+        username: dogData.username,
+      },
     });
     const data = res.data;
     dispatch(showDog(data));
   } catch (err) {
     dispatch({
       type: GET_ERRORS,
-      payload: err.response
+      payload: err.response.data,
     });
   }
 };

@@ -166,16 +166,18 @@ router.post("/login", (req, res) => {
 
 router.get("/show", async (req, res) => {
   try {
-    const dog = await Dog.findOne({username: req.query.username});
+      console.log('hello farmer')
+    // const dog = await Dog.findOne({username: req.query.username});
+    // console.log(dog)
 
-    Dog.aggregate([{ $match: {$and:
-        [{_id: { $ne: dog._id }},
-        {_id: { $nin: dog.likes.map(x => x.dogID) }},
-        {_id: { $nin: dog.dislikes.map(x => x.dogID) }},
-        {_id: { $nin: dog.matches.map(x => x.dogID) }}
-        ]}}, { $sample: { size: 1 }}]).then(data => {
-        res.send(data);
-    })
+    // Dog.aggregate([{ $match: {$and:
+    //     [{_id: { $ne: dog._id }},
+    //     {_id: { $nin: dog.likes.map(x => x.dogID) }},
+    //     {_id: { $nin: dog.dislikes.map(x => x.dogID) }},
+    //     {_id: { $nin: dog.matches.map(x => x.dogID) }}
+    //     ]}}, { $sample: { size: 1 }}]).then(data => {
+    //     res.send(data);
+    // })
     } catch (err) {
         console.error(err.message);
         res.status(500).send({message: "server error"});
