@@ -15,23 +15,6 @@ class Profile extends Component {
     };
   }
 
-  onClickHandler = () => {
-    // e.preventDefault();
-    const { dog } = this.props.auth;
-    const data = new FormData();
-    data.append("file", this.state.image);
-    data.append("dog_id", dog.id);
-
-    this.props.addImage(data);
-  };
-
-  onChange = (e) => {
-    this.setState({
-      image: e.target.files[0],
-      loaded: 0,
-    });
-  };
-
   onLogoutClick = (e) => {
     e.preventDefault();
     this.props.logoutDog();
@@ -94,36 +77,6 @@ class Profile extends Component {
                 Logout
               </button>
             </div>
-            <form noValidate onSubmit={this.onSubmit}>
-              <div className="input-field col s12">
-                <input
-                  onChange={this.onChange}
-                  // value={this.state.image}
-                  // id="image"
-                  name="file"
-                  type="file"
-                />
-              </div>
-              {/* <button
-                style={{
-                  width: "150px",
-                  borderRadius: "3px",
-                  letterSpacing: "1.5px",
-                  marginTop: "1rem",
-                }}
-                type="submit"
-                className="btn btn-large waves-effect waves-light hoverable blue accent-3">
-                add image
-              </button> */}
-              <button
-                type="button"
-                className="btn btn-large waves-effect waves-light hoverable blue accent-3"
-                onClick={() => {
-                  this.onClickHandler(dog.username);
-                }}>
-                Upload
-              </button>
-            </form>
           </div>
         </div>
       </div>

@@ -17,7 +17,7 @@ export const showDogs = dogData => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: GET_ERRORS,
-      payload: err.response.data,
+      payload: err.response
     });
   }
 };

@@ -52,7 +52,13 @@ router.post('/image', upload.single('file'), async (req, res) => {
 // @route POST api/dogs/register
 // @desc Register user
 // @access Public
-router.post("/register", (req, res) => {
+router.post("/register", upload.single('photo'), (req, res) => {
+    var obj = {
+      data: fs.readFileSync(
+        path.join(__dirname + "/uploads/" + req.file.originalname)
+      ),
+      contentType: "image/png",
+    };
     // Form validation
     const {
         errors,
@@ -74,6 +80,7 @@ router.post("/register", (req, res) => {
                 name: req.body.name,
                 username: req.body.username,
                 breed: req.body.breed,
+                photo: obj,
                 age: req.body.age,
                 email: req.body.email,
                 password: req.body.password
