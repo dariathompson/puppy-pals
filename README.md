@@ -1,7 +1,7 @@
-# Doggie Dates
+# Puppy Pals
 
 Is your doggy feeling lonely, sad, or just missing that special somebody? 
-Why not get them on Doggie Dates and they'll be meeting that next adorable play date before you know it!
+Why not get them on Puppy Pals and they'll be meeting that next adorable play date before you know it!
 
 Match with other dogs based on their Size, Age, Breed and dashing good looks!
 
