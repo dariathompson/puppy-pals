@@ -2,28 +2,32 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutDog } from "../../actions/authActions";
-import { addImage } from "../../actions/dogActions";
 
 import { Link } from "react-router-dom";
 
 
 class Profile extends Component {
-  constructor() {
-    super();
-    this.state = {
-      image: null,
-    };
-  }
+  // constructor() {
+  //   super();
+  //   this.state = {
+  //     image: null,
+  //   };
+  // }
 
   onLogoutClick = (e) => {
     e.preventDefault();
     this.props.logoutDog();
   };
   render() {
+    // if (!this.props.auth.photo) {
+    //   this.props.logoutDog();
+    // }else{
     const { dog } = this.props.auth;
+    console.log(dog);
 
     var buf = Buffer.from(dog.photo.data, 'latin1');
-    var profilePic = buf.toString('base64')
+    var profilePic = buf.toString('base64');
+    
 
     return (
       <div style={{ height: "75vh" }} className="container valign-wrapper">
@@ -82,13 +86,13 @@ class Profile extends Component {
       </div>
     );
   }
+  // }
 }
 Profile.propTypes = {
-  addImage: PropTypes.func.isRequired,
   logoutDog: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
 };
 const mapStateToProps = (state) => ({
   auth: state.auth,
 });
-export default connect(mapStateToProps, { logoutDog, addImage })(Profile);
+export default connect(mapStateToProps, { logoutDog })(Profile);

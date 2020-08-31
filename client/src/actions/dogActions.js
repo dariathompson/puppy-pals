@@ -75,14 +75,3 @@ export const showMatch = (data) => {
     payload: data,
   };
 };
-
-export const addImage = (data) => async (dispatch) => {
-  try {
-    await axios.post("/api/dogs/image", data);
-  } catch (err) {
-    dispatch({
-      type: GET_ERRORS,
-      payload: err.response.data,
-    });
-  }
-};

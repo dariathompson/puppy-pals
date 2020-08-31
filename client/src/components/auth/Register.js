@@ -69,8 +69,8 @@ class Register extends Component {
   onClickHandler = () => {
     // e.preventDefault();
     const data = new FormData();
-    data.set("name", this.state.name);
-    data.set("username", this.state.username);
+    data.append("name", this.state.name);
+    data.append("username", this.state.username);
     data.append("age", this.state.age);
     data.append("breed", this.state.breed);
     data.append("photo", this.state.photo);

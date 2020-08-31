@@ -25,30 +25,6 @@ var storage = multer.diskStorage({
 
 var upload = multer({ storage: storage })
 
-router.post('/image', upload.single('file'), async (req, res) => { 
-  
-    try {
-        var dog = req.body.dog_id
-        var obj = {
-            data: fs.readFileSync(
-            path.join(__dirname + "/uploads/" + req.file.originalname)
-            ),
-            contentType: "image/png"
-        };
-
-        console.log(obj)
-        
-        dog = await Dog.updateOne({ _id: dog }, { $set: { photo: obj }});
-        return res.status(200).json({ dog });
-
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).send("Server error");
-    }
-
-}); 
-
-
 // @route POST api/dogs/register
 // @desc Register user
 // @access Public
@@ -167,17 +143,17 @@ router.post("/login", (req, res) => {
 router.get("/show", async (req, res) => {
   try {
       console.log('hello farmer')
-    // const dog = await Dog.findOne({username: req.query.username});
-    // console.log(dog)
+    const dog = await Dog.findOne({username: req.query.username});
+    console.log(dog)
 
-    // Dog.aggregate([{ $match: {$and:
-    //     [{_id: { $ne: dog._id }},
-    //     {_id: { $nin: dog.likes.map(x => x.dogID) }},
-    //     {_id: { $nin: dog.dislikes.map(x => x.dogID) }},
-    //     {_id: { $nin: dog.matches.map(x => x.dogID) }}
-    //     ]}}, { $sample: { size: 1 }}]).then(data => {
-    //     res.send(data);
-    // })
+    Dog.aggregate([{ $match: {$and:
+        [{_id: { $ne: dog._id }},
+        {_id: { $nin: dog.likes.map(x => x.dogID) }},
+        {_id: { $nin: dog.dislikes.map(x => x.dogID) }},
+        {_id: { $nin: dog.matches.map(x => x.dogID) }}
+        ]}}, { $sample: { size: 1 }}]).then(data => {
+        res.send(data);
+    })
     } catch (err) {
         console.error(err.message);
         res.status(500).send({message: "server error"});
