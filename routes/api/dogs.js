@@ -107,10 +107,12 @@ router.post("/login", (req, res) => {
             if (isMatch) {
                 // User matched
                 // Create JWT Payload
+                var buf = Buffer.from(dog.photo.data, 'latin1');
+                var profilePic = buf.toString('base64');
                 const payload = {
                     id: dog.id,
                     name: dog.name,
-                    photo: dog.photo,
+                    photo: profilePic,
                     age: dog.age,
                     breed: dog.breed,
                     username: dog.username
@@ -142,7 +144,7 @@ router.post("/login", (req, res) => {
 
 router.get("/show", async (req, res) => {
   try {
-      console.log('hello farmer')
+      console.log('hello farmersss')
     const dog = await Dog.findOne({username: req.query.username});
     console.log(dog)
 
@@ -200,6 +202,7 @@ router.post("/dislike", async (req, res) => {
 
 router.get("/matches", async (req, res) => {
   try {
+      console.log("Hellooo")
         const dog = await Dog.findOne({ username: req.query.username });
 
         var matches = [];

@@ -25,8 +25,8 @@ class Profile extends Component {
     const { dog } = this.props.auth;
     console.log(dog);
 
-    var buf = Buffer.from(dog.photo.data, 'latin1');
-    var profilePic = buf.toString('base64');
+    // var buf = Buffer.from(dog.photo.data, 'latin1');
+    // var profilePic = buf.toString('base64');
     
 
     return (
@@ -37,12 +37,12 @@ class Profile extends Component {
               <b>Hey there,</b> {dog.name}
               <p className="flow-text grey-text text-darken-1">
                 You are logged into
-                <span style={{ fontFamily: "monospace" }}> Doggy</span> dates 👏
+                <span style={{ fontFamily: "monospace" }}> Puppy</span> pals 👏
               </p>
               <p>age: {dog.age}</p>
               <p>breed: {dog.breed}</p>
             </h4>
-            <img src={`data:image/png;base64,${profilePic}`} alt="You" width="300" />
+            <img src={`data:image/png;base64,${dog.photo}`} alt="You" width="300" />
             <div className="buttons">
               <Link
                 to="/show"
