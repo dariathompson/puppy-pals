@@ -15,8 +15,7 @@ const DogSchema = new Schema({
     required: false,
   },
   photo: {
-    data: Buffer,
-    contentType: String,
+    type: String,
     required: false,
   },
   age: {
