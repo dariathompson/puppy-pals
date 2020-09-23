@@ -57,13 +57,11 @@ class Show extends Component {
   render() {
     const dogs = this.props.dogs.dogs.map((dog) => {
       console.log(dog);
-      var buf = Buffer.from(dog.photo.data, 'latin1');
-      var profilePic = buf.toString('base64');
       return (
         <div key={dog.username} className="card">
           <div className="col-6">
             <h4>
-            <img src={`data:image/png;base64,${profilePic}`} alt="Dog" width="300" />
+            <img src={dog.photo} alt="Dog" width="300" />
               <strong>{dog.name}</strong>, <small>{dog.age}</small>
             </h4>
             <p>{dog.breed}</p>

@@ -42,7 +42,7 @@ class Profile extends Component {
               <p>age: {dog.age}</p>
               <p>breed: {dog.breed}</p>
             </h4>
-            <img src={`data:image/png;base64,${dog.photo}`} alt="You" width="300" />
+            <img src={dog.photo} alt="You" width="300" />
             <div className="buttons">
               <Link
                 to="/show"
