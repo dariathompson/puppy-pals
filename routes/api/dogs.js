@@ -8,50 +8,165 @@ const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 // Load Dog model
 const Dog = require("../../models/Dog")
+var AWS = require("aws-sdk");
+
+var fs = require("fs"); 
+var path = require("path"); 
+var multer = require("multer");
+const { log } = require("console");
+
+require('dotenv').config();
+
+// var storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, path.join(__dirname + "/uploads"));
+//   },
+//   filename: function (req, file, cb) {
+//     cb(null, file.originalname);
+//   },
+// });
+
+var storage = multer.memoryStorage();
+var upload = multer({ storage: storage });
+
+
+
+
+
+
+
+
+
+router.post("/register", upload.single("photo"), (req, res) => {
+
+    // console.log(req);
+
+    const photo = req.file
+    const s3PhotoURL = process.env.AWS_BUCKET_URL;
+
+    let s3bucket = new AWS.S3({
+      accessKeyId: process.env.ACCESS_KEY_ID,
+      secretAccessKey: process.env.SECRET_ACCESS_KEY,
+      region: process.env.AWS_REGION,
+    });
+
+    var params = {
+      Bucket: process.env.AWS_BUCKET_NAME,
+      Key: photo.originalname,
+      Body: photo.buffer,
+      ContentType: photo.mimetype,
+      ACL: "public-read",
+    };
+
+    // Form validation
+    const { errors, isValid } = validateRegisterInput(req.body);
+    // Check validation
+    if (!isValid) {
+      return res.status(400).json(errors);
+    }
+    Dog.findOne({
+      username: req.body.username,
+    }).then((dog) => {
+      if (dog) {
+        return res.status(400).json({
+          username: "Username already exists",
+        });
+      } else {
+        s3bucket.upload(params, function(err, data) {
+            if(err){
+                res.status(500).json({ error: true, Message: err});
+            } else {
+                // res.send({ data });
+                var image = s3PhotoURL + params.Key;
+
+                const newDog = new Dog({
+                  name: req.body.name,
+                  username: req.body.username,
+                  breed: req.body.breed,
+                  photo: image,
+                  age: req.body.age,
+                  email: req.body.email,
+                  password: req.body.password,
+                });
+                // Hash password before saving in database
+                bcrypt.genSalt(10, (err, salt) => {
+                  bcrypt.hash(newDog.password, salt, (err, hash) => {
+                    if (err) throw err;
+                    newDog.password = hash;
+                    newDog
+                      .save()
+                      .then((dog) => res.json(dog))
+                      .catch((err) => console.log(err));
+                  });
+                });
+            }
+        })
+    }
+  });
+});
+
+
+
+
+
+
+
+
+
+
+
+
 
 // @route POST api/dogs/register
 // @desc Register user
 // @access Public
-router.post("/register", (req, res) => {
-    // Form validation
-    const {
-        errors,
-        isValid
-    } = validateRegisterInput(req.body);
-    // Check validation
-    if (!isValid) {
-        return res.status(400).json(errors);
-    }
-    Dog.findOne({
-        username: req.body.username
-    }).then(dog => {
-        if (dog) {
-            return res.status(400).json({
-                username: "Username already exists"
-            });
-        } else {
-            const newDog = new Dog({
-                name: req.body.name,
-                username: req.body.username,
-                breed: req.body.breed,
-                age: req.body.age,
-                email: req.body.email,
-                password: req.body.password
-            });
-            // Hash password before saving in database
-            bcrypt.genSalt(10, (err, salt) => {
-                bcrypt.hash(newDog.password, salt, (err, hash) => {
-                    if (err) throw err;
-                    newDog.password = hash;
-                    newDog
-                        .save()
-                        .then(dog => res.json(dog))
-                        .catch(err => console.log(err));
-                });
-            });
-        }
-    });
-});
+// router.post("/register", upload.single('photo'), (req, res) => {
+//     var obj = {
+//       data: fs.readFileSync(
+//         path.join(__dirname + "/uploads/" + req.file.originalname)
+//       ),
+//       contentType: "image/png",
+//     };
+//     // Form validation
+//     const {
+//         errors,
+//         isValid
+//     } = validateRegisterInput(req.body);
+//     // Check validation
+//     if (!isValid) {
+//         return res.status(400).json(errors);
+//     }
+//     Dog.findOne({
+//         username: req.body.username
+//     }).then(dog => {
+//         if (dog) {
+//             return res.status(400).json({
+//                 username: "Username already exists"
+//             });
+//         } else {
+//             const newDog = new Dog({
+//                 name: req.body.name,
+//                 username: req.body.username,
+//                 breed: req.body.breed,
+//                 photo: obj,
+//                 age: req.body.age,
+//                 email: req.body.email,
+//                 password: req.body.password
+//             });
+//             // Hash password before saving in database
+//             bcrypt.genSalt(10, (err, salt) => {
+//                 bcrypt.hash(newDog.password, salt, (err, hash) => {
+//                     if (err) throw err;
+//                     newDog.password = hash;
+//                     newDog
+//                         .save()
+//                         .then(dog => res.json(dog))
+//                         .catch(err => console.log(err));
+//                 });
+//             });
+//         }
+//     });
+// });
 
 
 // @route POST api/dogs/login
@@ -84,9 +199,11 @@ router.post("/login", (req, res) => {
             if (isMatch) {
                 // User matched
                 // Create JWT Payload
+
                 const payload = {
                     id: dog.id,
                     name: dog.name,
+                    photo: dog.photo,
                     age: dog.age,
                     breed: dog.breed,
                     username: dog.username
@@ -118,7 +235,9 @@ router.post("/login", (req, res) => {
 
 router.get("/show", async (req, res) => {
   try {
+      console.log('hello farmersss')
     const dog = await Dog.findOne({username: req.query.username});
+    console.log(dog)
 
     Dog.aggregate([{ $match: {$and:
         [{_id: { $ne: dog._id }},
@@ -174,6 +293,7 @@ router.post("/dislike", async (req, res) => {
 
 router.get("/matches", async (req, res) => {
   try {
+      console.log("Hellooo")
         const dog = await Dog.findOne({ username: req.query.username });
 
         var matches = [];
@@ -181,6 +301,7 @@ router.get("/matches", async (req, res) => {
         for (const match of dog.matches) {
           const match_dog = await Dog.findOne({_id: match.dogID})
           matches.push(match_dog)
+          console.log(matches);
         }
         return res.send( matches );
 

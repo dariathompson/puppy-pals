@@ -22,6 +22,7 @@ class Show extends Component {
 
   show() {
     const { dog } = this.props.auth;
+    console.log(dog);
     const dogData = {
       username: dog.username,
     };
@@ -54,18 +55,16 @@ class Show extends Component {
   }
 
   render() {
-    // if (this.props.dogs.dogs.length === 0){
-    //   return (<div><h2>No more dogs</h2></div>)
-    // }else{
     const dogs = this.props.dogs.dogs.map((dog) => {
+      console.log(dog);
       return (
         <div key={dog.username} className="card">
           <div className="col-6">
             <h4>
+            <img src={dog.photo} alt="Dog" width="300" />
               <strong>{dog.name}</strong>, <small>{dog.age}</small>
             </h4>
             <p>{dog.breed}</p>
-            {/* <p>{dog.age}</p> */}
             <hr className="new1"/>
             <div className="tinder--buttons">
               <button

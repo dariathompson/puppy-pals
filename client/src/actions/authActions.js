@@ -7,9 +7,9 @@ import {
   DOG_LOADING
 } from "./types";
 // Register dog
-export const registerDog = (dogData, history) => dispatch => {
+export const registerDog = (data, history) => dispatch => {
   axios
-    .post("/api/dogs/register", dogData)
+    .post("/api/dogs/register", data)
     .then(res => history.push("/profile")) // re-direct to profile on successful register
     .catch(err =>
       dispatch({

@@ -2,15 +2,33 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutDog } from "../../actions/authActions";
+
 import { Link } from "react-router-dom";
 
+
 class Profile extends Component {
+  // constructor() {
+  //   super();
+  //   this.state = {
+  //     image: null,
+  //   };
+  // }
+
   onLogoutClick = (e) => {
     e.preventDefault();
     this.props.logoutDog();
   };
   render() {
+    // if (!this.props.auth.photo) {
+    //   this.props.logoutDog();
+    // }else{
     const { dog } = this.props.auth;
+    console.log(dog);
+
+    // var buf = Buffer.from(dog.photo.data, 'latin1');
+    // var profilePic = buf.toString('base64');
+    
+
     return (
       <div style={{ height: "75vh" }} className="container valign-wrapper">
         <div className="row">
@@ -19,11 +37,12 @@ class Profile extends Component {
               <b>Hey there,</b> {dog.name}
               <p className="flow-text grey-text text-darken-1">
                 You are logged into
-                <span style={{ fontFamily: "monospace" }}> Doggy</span> dates 👏
+                <span style={{ fontFamily: "monospace" }}> Puppy</span> pals 👏
               </p>
               <p>age: {dog.age}</p>
               <p>breed: {dog.breed}</p>
             </h4>
+            <img src={dog.photo} alt="You" width="300" />
             <div className="buttons">
               <Link
                 to="/show"
@@ -31,19 +50,19 @@ class Profile extends Component {
                   width: "140px",
                   borderRadius: "3px",
                   letterSpacing: "1.5px",
-                  marginRight: "5px"
+                  marginRight: "5px",
                 }}
                 className="btn btn-large waves-effect waves-light hoverable red accent-3">
                 Match
               </Link>
-         
+
               <Link
                 to="/matches"
                 style={{
                   width: "140px",
                   borderRadius: "3px",
                   letterSpacing: "1.5px",
-                  marginLeft: "5px"
+                  marginLeft: "5px",
                 }}
                 className="btn btn-large waves-effect waves-light hoverable green accent-3">
                 Matches
@@ -67,6 +86,7 @@ class Profile extends Component {
       </div>
     );
   }
+  // }
 }
 Profile.propTypes = {
   logoutDog: PropTypes.func.isRequired,

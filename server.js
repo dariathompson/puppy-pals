@@ -5,16 +5,21 @@ const app = express();
 
 const passport = require("passport");
 const dogs = require("./routes/api/dogs");
+const cors = require("cors");
 
 require('dotenv').config();
 
 // Bodyparser middleware
 app.use(
     bodyParser.urlencoded({
+        parameterLimit: 100000,
+        limit: '50mb',
         extended: true
     })
 );
-app.use(bodyParser.json());
+
+app.use(bodyParser.json({limit: '50mb', type: 'application/json'}));
+// app.use(bodyParser());
 // DB Config
 const db = process.env.ATLAS_URI;
 // Connect to MongoDB
@@ -35,6 +40,9 @@ require("./config/passport")(passport);
 // Routes
 app.use("/api/dogs", dogs);
 
-    
+// app.use(cors());
+
+// app.use((req, res, next) => { res.header('Access-Control-Allow-Origin', '*');  next();});
+
 const port = process.env.PORT || 5000; // process.env.port is Heroku's port if you choose to deploy the app there
 app.listen(port, () => console.log(`Server up and running on port ${port} !`));

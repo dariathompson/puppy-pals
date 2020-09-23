@@ -5,12 +5,12 @@ import {
   SHOW_MATCHES
 } from "./types";
 
-export const showDogs = dogData => async (dispatch) => {
+export const showDogs = (dogData) => async (dispatch) => {
   try {
     const res = await axios.get("/api/dogs/show", {
       params: {
-        username: dogData.username
-      }
+        username: dogData.username,
+      },
     });
     const data = res.data;
     dispatch(showDog(data));
@@ -61,6 +61,25 @@ export const showMatches = dogData => async (dispatch) => {
     });
   }
 };
+
+// export const showMatches = dogData => dispatch => {
+//   axios
+//   .get("/api/dogs/matches", {
+//       params: {
+//         username: dogData.username,
+//       },
+//     }, {timeout: 10000})
+//     .then(res => {
+//       const {data} = res.data
+//       dispatch(showMatch(data));
+//     })
+//     .catch(err => 
+//     dispatch({
+//       type: GET_ERRORS,
+//       payload: err.response.data,
+//     })
+//   );
+// };
 
 export const showDog = (data) => {
   return {

@@ -13,6 +13,7 @@ class Register extends Component {
       username: "",
       age: "",
       breed: "",
+      photo: null,
       email: "",
       password: "",
       password2: "",
@@ -29,7 +30,7 @@ class Register extends Component {
 
   static getDerivedStateFromProps(nextProps) {
     if (nextProps.errors) {
-      return { errors: nextProps.errors};
+      return { errors: nextProps.errors };
     } else return null; // Triggers no change in the state
   }
 
@@ -38,19 +39,53 @@ class Register extends Component {
       [e.target.id]: e.target.value,
     });
   };
-  onSubmit = (e) => {
-    e.preventDefault();
-    const newDog = {
-      name: this.state.name,
-      username: this.state.username,
-      age: this.state.age,
-      breed: this.state.breed,
-      email: this.state.email,
-      password: this.state.password,
-      password2: this.state.password2,
-    };
+  // onSubmit = (e) => {
+  //   e.preventDefault();
 
-    this.props.registerDog(newDog, this.props.history);
+  // const data = new FormData();
+  // data.append("name", this.state.name);
+  // data.append("username", this.state.username);
+  // data.append("age", this.state.age);
+  // data.append("breed", this.state.breed);
+  // data.append("photo", this.state.photo);
+  // data.append("email", this.state.email);
+  // data.append("password", this.state.password);
+  // data.append("password2", this.state.password2);
+
+  // const newDog = {
+  //   name: this.state.name,
+  //   username: this.state.username,
+  //   age: this.state.age,
+  //   breed: this.state.breed,
+  //   photo: this.state.photo,
+  //   email: this.state.email,
+  //   password: this.state.password,
+  //   password2: this.state.password2,
+  // };
+
+  // this.props.registerDog(data, this.props.history);
+  // };
+
+  onClickHandler = () => {
+    // e.preventDefault();
+    const data = new FormData();
+    data.append("name", this.state.name);
+    data.append("username", this.state.username);
+    data.append("age", this.state.age);
+    data.append("breed", this.state.breed);
+    data.append("photo", this.state.photo);
+    data.append("email", this.state.email);
+    data.append("password", this.state.password);
+    data.append("password2", this.state.password2);
+
+    this.props.registerDog(data, this.props.history);
+  };
+
+  onPhotoChange = (e) => {
+    this.setState({
+      photo: e.target.files[0],
+      loaded: 0,
+    });
   };
 
   render() {
@@ -133,6 +168,18 @@ class Register extends Component {
               </div>
               <div className="input-field col s12">
                 <input
+                  onChange={this.onPhotoChange}
+                  error={errors.photo}
+                  id="photo"
+                  type="file"
+                  className={classnames("", {
+                    invalid: errors.photo,
+                  })}
+                />
+                <span className="red-text"> {errors.photo} </span>
+              </div>
+              <div className="input-field col s12">
+                <input
                   onChange={this.onChange}
                   value={this.state.email}
                   error={errors.email}
@@ -185,8 +232,11 @@ class Register extends Component {
                     letterSpacing: "1.5px",
                     marginTop: "1rem",
                   }}
-                  type="submit"
-                  className="btn btn-large waves-effect waves-light hoverable blue accent-3">
+                  type="button"
+                  className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+                  onClick={() => {
+                    this.onClickHandler();
+                  }}>
                   Sign up
                 </button>
               </div>

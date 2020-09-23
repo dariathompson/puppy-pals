@@ -25,10 +25,14 @@ class Matches extends Component {
       return (
         <div key={match.username} className="card">
           <div className="col-6">
+            <img src={match.photo} alt="Match" />
             <h4>
               <strong>{match.name}</strong>, <small>{match.age}</small>
             </h4>
             <p>{match.breed}</p>
+            <a className="btn" href={"mailto:" + match.email}>
+              Message
+            </a>
           </div>
         </div>
       );
