@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
@@ -8,6 +8,8 @@ import { Provider } from "react-redux";
 import store from "./store";
 
 import './App.css';
+
+import "materialize-css/dist/css/materialize.min.css";
 
 import Navbar from "./components/layout/Navbar";
 import Landing from "./components/layout/Landing";
@@ -36,7 +38,6 @@ if (localStorage.jwtToken) {
     window.location.href = "./login";
   }
 }
-
 
 const App = () => {
 

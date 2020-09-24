@@ -4,45 +4,88 @@ import image from "../../assets/user.png"
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutDog } from "../../actions/authActions";
+import M from "materialize-css/dist/js/materialize.min.js";
+
+
+
 class Navbar extends Component {
   onLogoutClick = (e) => {
     e.preventDefault();
     this.props.logoutDog();
   };
+
+  componentDidMount() {
+    let sidenav = document.querySelector("#slide-out");
+    M.Sidenav.init(sidenav, {});
+  }
+
   render() {
+
     return (
-      <div className="navbar-fixed">
-        <nav className="z-depth-0">
-          <div className="nav-wrapper white">
-          <a href="/"><img src={image} alt="profile" /></a>
-            <Link
-              to="/"
-              style={{
-                fontFamily: "monospace",
-              }}
-              className="col s5 brand-logo center black-text">
-              <i className="material-icons">Puppy</i>
-              Pals
-            </Link>
-              
-          </div>
-          <div>
-          <button
-                style={{
-                  width: "150px",
-                  borderRadius: "3px",
-                  letterSpacing: "1.5px",
-                  marginTop: "1rem",
-                }}
-                onClick={this.onLogoutClick}
-                className="btn btn-large waves-effect waves-light hoverable blue accent-3">
-                Logout
-              </button>
+      <div>
+        <nav>
+          <div class="nav-wrapper black" style={{paddingLeft: "3%"}}>
+            <a href="#!" class="brand-logo">
+              P U P P Y
+            </a>
+            <a href="#" data-target="slide-out" class="sidenav-trigger">
+              <i class="material-icons">menu</i>
+            </a>
+            <ul class="right hide-on-med-and-down">
+              <li>
+                <a href="#login">Login</a>
+              </li>
+              <li>
+                <a href="#getStarted">Get Started</a>
+              </li>
+            </ul>
           </div>
         </nav>
+
+        <ul class="sidenav" id="slide-out">
+          <li>
+            <a href="#login">Login</a>
+          </li>
+          <li>
+            <a href="#getStarted">Get Started</a>
+          </li>
+        </ul>
       </div>
     );
   }
+  //     <div className="NavBar">
+  //       <nav>
+  //         <div className="container">
+  //           <a
+  //             href="#"
+  //             data-target="slide-out"
+  //             class="sidenav-trigger show-on-large">
+  //             <i class="material-icons">menu</i>
+  //           </a>
+  //           <ul id="nav-mobile" class="right hide-on-med-and-down">
+  //             <li>
+  //               <a href="#">Home</a>
+  //             </li>
+  //             <li>
+  //               <a href="#">About</a>
+  //             </li>
+  //           </ul>
+  //           <ul id="slide-out" class="sidenav">
+  //             <li>
+  //               <a href="#item1">Item 1</a>
+  //             </li>
+  //             <li>
+  //               <a href="#item2">Item 2</a>
+  //             </li>
+  //             <li>
+  //               <a href="#item3">Item 3</a>
+  //             </li>
+  //           </ul>
+  //         </div>
+  //       </nav>
+  //     </div>
+  //   );
+  // }
 }
 
 Navbar.propTypes = {
