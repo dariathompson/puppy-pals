@@ -10,36 +10,16 @@ const validateLoginInput = require("../../validation/login");
 const Dog = require("../../models/Dog")
 var AWS = require("aws-sdk");
 
-var fs = require("fs"); 
-var path = require("path"); 
 var multer = require("multer");
-const { log } = require("console");
 
 require('dotenv').config();
 
-// var storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, path.join(__dirname + "/uploads"));
-//   },
-//   filename: function (req, file, cb) {
-//     cb(null, file.originalname);
-//   },
-// });
 
 var storage = multer.memoryStorage();
 var upload = multer({ storage: storage });
 
 
-
-
-
-
-
-
-
 router.post("/register", upload.single("photo"), (req, res) => {
-
-    // console.log(req);
 
     const photo = req.file
     const s3PhotoURL = process.env.AWS_BUCKET_URL;
@@ -76,7 +56,6 @@ router.post("/register", upload.single("photo"), (req, res) => {
             if(err){
                 res.status(500).json({ error: true, Message: err});
             } else {
-                // res.send({ data });
                 var image = s3PhotoURL + params.Key;
 
                 const newDog = new Dog({
@@ -105,68 +84,6 @@ router.post("/register", upload.single("photo"), (req, res) => {
   });
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-// @route POST api/dogs/register
-// @desc Register user
-// @access Public
-// router.post("/register", upload.single('photo'), (req, res) => {
-//     var obj = {
-//       data: fs.readFileSync(
-//         path.join(__dirname + "/uploads/" + req.file.originalname)
-//       ),
-//       contentType: "image/png",
-//     };
-//     // Form validation
-//     const {
-//         errors,
-//         isValid
-//     } = validateRegisterInput(req.body);
-//     // Check validation
-//     if (!isValid) {
-//         return res.status(400).json(errors);
-//     }
-//     Dog.findOne({
-//         username: req.body.username
-//     }).then(dog => {
-//         if (dog) {
-//             return res.status(400).json({
-//                 username: "Username already exists"
-//             });
-//         } else {
-//             const newDog = new Dog({
-//                 name: req.body.name,
-//                 username: req.body.username,
-//                 breed: req.body.breed,
-//                 photo: obj,
-//                 age: req.body.age,
-//                 email: req.body.email,
-//                 password: req.body.password
-//             });
-//             // Hash password before saving in database
-//             bcrypt.genSalt(10, (err, salt) => {
-//                 bcrypt.hash(newDog.password, salt, (err, hash) => {
-//                     if (err) throw err;
-//                     newDog.password = hash;
-//                     newDog
-//                         .save()
-//                         .then(dog => res.json(dog))
-//                         .catch(err => console.log(err));
-//                 });
-//             });
-//         }
-//     });
-// });
 
 
 // @route POST api/dogs/login
@@ -235,9 +152,7 @@ router.post("/login", (req, res) => {
 
 router.get("/show", async (req, res) => {
   try {
-      console.log('hello farmersss')
     const dog = await Dog.findOne({username: req.query.username});
-    console.log(dog)
 
     Dog.aggregate([{ $match: {$and:
         [{_id: { $ne: dog._id }},
@@ -279,8 +194,6 @@ router.post("/dislike", async (req, res) => {
     try {
         const disliker = await Dog.findOne({username: req.body.disliker});
         const dislikee = await Dog.findOne({username: req.body.dislikee});
-    
-        // liker.likes.push(likee._id);
 
         dog = await Dog.findOneAndUpdate({_id: disliker._id}, { $addToSet: { dislikes: {dogID: dislikee._id}}})
             return res.status(200).json({ dog, dislikes: dog.dislikes });
@@ -293,15 +206,13 @@ router.post("/dislike", async (req, res) => {
 
 router.get("/matches", async (req, res) => {
   try {
-      console.log("Hellooo")
         const dog = await Dog.findOne({ username: req.query.username });
 
         var matches = [];
 
         for (const match of dog.matches) {
-          const match_dog = await Dog.findOne({_id: match.dogID})
-          matches.push(match_dog)
-          console.log(matches);
+          const match_dog = await Dog.findOne({_id: match.dogID});
+          matches.push(match_dog);
         }
         return res.send( matches );
 

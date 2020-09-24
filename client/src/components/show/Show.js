@@ -22,7 +22,6 @@ class Show extends Component {
 
   show() {
     const { dog } = this.props.auth;
-    console.log(dog);
     const dogData = {
       username: dog.username,
     };
@@ -36,8 +35,7 @@ class Show extends Component {
       disliker: dog.username,
     };
     const dislike_response = await this.props.dislike(dislikeData);
-    this.show(dislike_response)
-    // this.show();
+    this.show(dislike_response);
   }
 
   async likeDog(likee) {
