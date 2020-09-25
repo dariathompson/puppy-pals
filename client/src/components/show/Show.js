@@ -53,35 +53,40 @@ class Show extends Component {
   }
 
   render() {
-    const dogs = this.props.dogs.dogs.map((dog) => {
-      console.log(dog);
-      return (
-        <div key={dog.username} className="card">
-          <div className="col-6">
-            <h4>
-            <img src={dog.photo} alt="Dog" width="300" />
-              <strong>{dog.name}</strong>, <small>{dog.age}</small>
-            </h4>
-            <p>{dog.breed}</p>
-            <hr className="new1"/>
-            <div className="tinder--buttons">
-              <button
-                onClick={() => {
-                  this.dislikeDog(dog.username);
-                }}>
-                <img src={dislike_img} alt="Dislike" />
-              </button>
-              <button
-                onClick={() => {
-                  this.likeDog(dog.username);
-                }}>
-                <img src={like_img} alt="Like" />
-              </button>
+    let dogs;
+    if(this.props.dogs.dogs.length > 0){
+      dogs = this.props.dogs.dogs.map((dog) => {
+        return (
+          <div key={dog.username} className="card">
+            <div className="col-6">
+              <h4>
+              <img src={dog.photo} alt="Dog" width="300" />
+                <strong>{dog.name}</strong>, <small>{dog.age}</small>
+              </h4>
+              <p>{dog.breed}</p>
+              <hr className="new1"/>
+              <div className="tinder--buttons">
+                <button
+                  onClick={() => {
+                    this.dislikeDog(dog.username);
+                  }}>
+                  <img src={dislike_img} alt="Dislike" />
+                </button>
+                <button
+                  onClick={() => {
+                    this.likeDog(dog.username);
+                  }}>
+                  <img src={like_img} alt="Like" />
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      );
-    });
+        );
+      });
+    }else{
+      dogs = <div><h4>There is no one new around you</h4></div>
+    }
+    
     return (
       
       <div className="main-container">
@@ -92,20 +97,8 @@ class Show extends Component {
         </div>
         
       ) }
-        {/* <h1>Dogs</h1> */}
         {dogs}
-        <Link
-          to="/profile"
-          style={{
-            width: "140px",
-            borderRadius: "3px",
-            letterSpacing: "1.5px",
-          }}
-          className="btn btn-large waves-effect waves-light hoverable blue accent-3">
-          Profile
-        </Link>
-      
-      
+
       </div>
     );
     

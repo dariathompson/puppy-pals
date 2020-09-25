@@ -20,7 +20,35 @@ class Navbar extends Component {
   }
 
   render() {
-
+    const isLoggedIn = this.props.auth.isAuthenticated
+    let buttons;
+    if (isLoggedIn) {
+      buttons = 
+      <div>
+        <li>
+          <Link to="/show">Match</Link>
+        </li>
+        <li>
+          <Link to="/matches">Matches</Link>
+        </li>
+        <li>
+          <Link to="/profile">Profile</Link>
+        </li>
+        <li>
+          <Link onClick={this.onLogoutClick}>Logout</Link>
+        </li>
+      </div>;
+    } else {
+      buttons = 
+      <div>
+        <li>
+          <Link to="/login">Login</Link>
+        </li>
+        <li>
+          <Link to="/register">Get Started</Link>
+        </li>
+      </div>;
+    }
     return (
       <div>
         <nav>
@@ -31,24 +59,15 @@ class Navbar extends Component {
             <a href="#" data-target="slide-out" className="sidenav-trigger">
               <i className="material-icons">menu</i>
             </a>
+
             <ul className="right hide-on-med-and-down">
-              <li>
-                <Link to="/login">Login</Link>
-              </li>
-              <li>
-                <Link to="/register">Get Started</Link>
-              </li>
+              {buttons}
             </ul>
           </div>
         </nav>
 
         <ul className="sidenav" id="slide-out">
-          <li>
-            <Link to="/login">Login</Link>
-          </li>
-          <li>
-            <Link to="/register">Get Started</Link>
-          </li>
+          {buttons}
         </ul>
       </div>
     );

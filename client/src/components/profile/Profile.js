@@ -7,38 +7,21 @@ import { Link } from "react-router-dom";
 
 
 class Profile extends Component {
-  // constructor() {
-  //   super();
-  //   this.state = {
-  //     image: null,
-  //   };
-  // }
 
   onLogoutClick = (e) => {
     e.preventDefault();
     this.props.logoutDog();
   };
   render() {
-    // if (!this.props.auth.photo) {
-    //   this.props.logoutDog();
-    // }else{
-    const { dog } = this.props.auth;
-    console.log(dog);
 
-    // var buf = Buffer.from(dog.photo.data, 'latin1');
-    // var profilePic = buf.toString('base64');
-    
+    const { dog } = this.props.auth;
 
     return (
-      <div style={{ height: "75vh" }} className="container valign-wrapper">
+      <div className="container valign-wrapper">
         <div className="row">
           <div className="col s12 center-align">
             <h4>
               <b>Hey there,</b> {dog.name}
-              <p className="flow-text grey-text text-darken-1">
-                You are logged into
-                <span style={{ fontFamily: "monospace" }}> Puppy</span> pals 👏
-              </p>
               <p>age: {dog.age}</p>
               <p>breed: {dog.breed}</p>
             </h4>

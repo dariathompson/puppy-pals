@@ -11,7 +11,7 @@ class Landing extends Component {
         <div className="row">
           <div className="col s12 center-align">
             <h4>
-                <b>DoggyDates</b>
+                <b>Puppy Pals</b>
             </h4>
             <br />
             <div className="col s6">
