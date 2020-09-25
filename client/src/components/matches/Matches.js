@@ -23,7 +23,7 @@ class Matches extends Component {
     console.log(this.props)
     const matches = this.props.dogs.matches.map((match) => {
       return (
-        <div key={match.username} className="card">
+        <div key={match.username} className="card hoverable">
           <div className="col-6">
             <img src={match.photo} alt="Match" width="300" />
             <h4>
@@ -41,16 +41,6 @@ class Matches extends Component {
       <div className="main-container">
         <h1>Matches</h1>
         {matches}
-        <Link
-          to="/profile"
-          style={{
-            width: "140px",
-            borderRadius: "3px",
-            letterSpacing: "1.5px",
-          }}
-          className="btn btn-large waves-effect waves-light hoverable blue accent-3">
-          Profile
-        </Link>
       </div>
     );
     
