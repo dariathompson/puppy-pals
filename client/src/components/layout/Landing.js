@@ -13,28 +13,27 @@ class Landing extends Component {
       //   backgroundSize: "cover",
       //   backgroundRepeat: "no-repeat"
       // }}>
-      <div style={{position: "relative", height: "100vh"}} >
-      {/* <div
+      <body style={{ height: "calc(100vh-60px)"}}>
+        {/* <div
         className="container" style={{position:"absolute", top: "0"}}> */}
-          <div className="row" style={{margin: "0", position:"absolute", bottom: "0"}}>
-            <div className="col s12 m6">
-              <div style={{display: "flex", flexDirection: "column"}}>
-                <h3>
-                    <b>Puppy Pals</b>
-                </h3>
-                <div>
-                  Easy way to find a new play date
-                </div>
-              </div>
-            </div>
-            <div className="col s12 m6">
-              <img src={dog} width="80%"></img>
+        <div
+          className="row"
+          style={{ margin: "0", position: "absolute", bottom: "0" }}
+          >
+          <div className="col s12 m6">
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <h3>
+                <b>Puppy Pals</b>
+              </h3>
+              <div>Easy way to find a new play date</div>
             </div>
           </div>
-      {/* </div> */}
-    </div>
-      
-
+          <div className="col s12 m6">
+            <img src={dog} style={{maxHeight: "90vh"}} ></img>
+          </div>
+        </div>
+        {/* </div> */}
+      </body>
     );
   }
 }
