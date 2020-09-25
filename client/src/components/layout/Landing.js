@@ -6,16 +6,7 @@ import bg from '../../assets/bg.jpg'
 class Landing extends Component {
   render() {
     return (
-      // <div style={{
-      //   height: "100vh",
-      //   backgroundImage: `url(${bg})`,
-      //   backgroundPosition: "50% 50%",
-      //   backgroundSize: "cover",
-      //   backgroundRepeat: "no-repeat"
-      // }}>
       <body style={{ height: "calc(100vh-60px)"}}>
-        {/* <div
-        className="container" style={{position:"absolute", top: "0"}}> */}
         <div
           className="row"
           style={{ margin: "0", position: "absolute", bottom: "0" }}
@@ -32,7 +23,6 @@ class Landing extends Component {
             <img src={dog} style={{maxHeight: "90vh"}} ></img>
           </div>
         </div>
-        {/* </div> */}
       </body>
     );
   }
