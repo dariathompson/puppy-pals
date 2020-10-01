@@ -82,3 +82,4 @@ It helps that we also both love Dogs!
 - Node
 - Express
 - MongoDB
+- AWS S3
