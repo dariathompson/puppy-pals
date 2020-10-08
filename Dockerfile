@@ -1,4 +1,4 @@
-FROM node:10.19.0
+FROM node:14.10.0
 # Create app directory
 WORKDIR /usr/src/app
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
