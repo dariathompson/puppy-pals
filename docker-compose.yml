@@ -1,0 +1,29 @@
+version: '3.7'
+
+services:
+    webapp-server:
+      build:
+        context: .
+        dockerfile: Dockerfile
+      image: backend
+      container_name: puppypals-backend
+      volumes:
+       - .:/usr/src/app
+       - /usr/src/app/node_modules
+      ports:
+        - "5000:5000"
+      depends_on:
+        - mongo
+      env_file: .env
+      environment:
+        - ATLAS_URI=$ATLAS_URI
+        - SECRET_ACCESS_KEY=$SECRET_ACCESS_KEY
+        - ACCESS_KEY_ID=$ACCESS_KEY_ID
+        - AWS_BUCKET_NAME=$AWS_BUCKET_NAME
+        - AWS_REGION=$AWS_REGION
+        - AWS_BUCKET_URL=$AWS_BUCKET_URL
+    mongo:
+      image: mongo
+      container_name: puppypals-mongodb
+      ports:
+        - "27017:27017"
