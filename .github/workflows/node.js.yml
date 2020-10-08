@@ -24,6 +24,9 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+
+    - name: CD into back end
+      run: cd server
       
     - name: run backend tests
       run: 
@@ -32,7 +35,7 @@ jobs:
         npm test
         
     - name: CD into front end
-      run: cd client
+      run: cd ../client
       
     - name: run frontend tests
       run: 
