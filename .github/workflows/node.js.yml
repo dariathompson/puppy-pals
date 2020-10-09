@@ -27,6 +27,9 @@ jobs:
 
     - name: CD into back end
       run: cd server
+
+    - name: Check 
+      run: ls
       
     - name: run backend tests
       run: 
