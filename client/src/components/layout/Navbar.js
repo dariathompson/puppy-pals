@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import image from "../../assets/user.png"
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutDog } from "../../actions/authActions";
@@ -53,7 +52,7 @@ class Navbar extends Component {
       <div>
         <nav>
           <div className="nav-wrapper black" style={{paddingLeft: "3%"}}>
-            <a href="/" class="brand-logo">
+            <a href="/" className="brand-logo">
               P U P P Y
             </a>
             <a href="#" data-target="slide-out" className="sidenav-trigger">
