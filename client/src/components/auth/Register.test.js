@@ -157,6 +157,47 @@ describe("Register.js", () => {
 
       expect(password2Input.props().value).toBe("secret");
     });
+    test("filling in name, username, age, breed, email, password and confirm password triggers register function", () => {
+        let nameInput = findTestByAttr(wrapper, "name-input");
+        nameInput.simulate("change", {
+          target: { id: "name", value: "Rex" },
+        });
+
+        let ageInput = findTestByAttr(wrapper, "age-input");
+        ageInput.simulate("change", {
+          target: { id: "age", value: "5" },
+        });
+
+        let breedInput = findTestByAttr(wrapper, "breed-input");
+        breedInput.simulate("change", {
+          target: { id: "breed", value: "pug" },
+        });
+
+        let usernameInput = findTestByAttr(wrapper, "username-input");
+        usernameInput.simulate("change", {
+          target: { id: "username", value: "rex" },
+        });
+  
+        let emailInput = findTestByAttr(wrapper, "email-input");
+        emailInput.simulate("change", {
+          target: { id: "email", value: "rex@test.com" },
+        });
+  
+        let passwordInput = findTestByAttr(wrapper, "password-input");
+        passwordInput.simulate("change", {
+          target: { id: "password", value: "secret" },
+        });
+  
+        let password2Input = findTestByAttr(wrapper, "password2-input");
+        password2Input.simulate("change", {
+          target: { id: "password2", value: "secret" },
+        });
+  
+        const submitButton = findTestByAttr(wrapper, "submit-button");
+        submitButton.simulate("click");
+  
+        expect(registerDog).toHaveBeenCalledTimes(1);
+      });
 });
 });
 
