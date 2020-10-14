@@ -15,9 +15,10 @@ class Profile extends Component {
   render() {
 
     const { dog } = this.props.auth;
+    console.log(dog)
 
     return (
-      <div className="container valign-wrapper">
+      <div data-test="profile-container" className="container valign-wrapper">
         <div className="row">
           <div className="col s12 center-align">
             <h4>

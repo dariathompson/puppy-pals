@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { registerDog } from "../../actions/authActions";
 import classnames from "classnames";
 
-class Register extends Component {
+export class Register extends Component {
   constructor() {
     super();
     this.state = {
@@ -39,32 +39,6 @@ class Register extends Component {
       [e.target.id]: e.target.value,
     });
   };
-  // onSubmit = (e) => {
-  //   e.preventDefault();
-
-  // const data = new FormData();
-  // data.append("name", this.state.name);
-  // data.append("username", this.state.username);
-  // data.append("age", this.state.age);
-  // data.append("breed", this.state.breed);
-  // data.append("photo", this.state.photo);
-  // data.append("email", this.state.email);
-  // data.append("password", this.state.password);
-  // data.append("password2", this.state.password2);
-
-  // const newDog = {
-  //   name: this.state.name,
-  //   username: this.state.username,
-  //   age: this.state.age,
-  //   breed: this.state.breed,
-  //   photo: this.state.photo,
-  //   email: this.state.email,
-  //   password: this.state.password,
-  //   password2: this.state.password2,
-  // };
-
-  // this.props.registerDog(data, this.props.history);
-  // };
 
   onClickHandler = () => {
     // e.preventDefault();
@@ -91,12 +65,9 @@ class Register extends Component {
   render() {
     const { errors } = this.state;
     return (
-      <div className="container">
+      <div className="container" data-test="register-container">
         <div className="row">
           <div className="col s8 offset-s2">
-            {/* <Link to="/" className="btn-flat waves-effect">
-             Back to home
-            </Link> */}
             <div
               className="col s12"
               style={{
@@ -111,7 +82,7 @@ class Register extends Component {
             </div>
             <form noValidate onSubmit={this.onSubmit}>
               <div className="input-field col s12">
-                <input
+                <input data-test="name-input"
                   onChange={this.onChange}
                   value={this.state.name}
                   error={errors.name}
@@ -125,7 +96,7 @@ class Register extends Component {
                 <span className="red-text"> {errors.name} </span>
               </div>
               <div className="input-field col s12">
-                <input
+                <input data-test="username-input"
                   onChange={this.onChange}
                   value={this.state.username}
                   error={errors.username}
@@ -139,7 +110,7 @@ class Register extends Component {
                 <span className="red-text"> {errors.username} </span>
               </div>
               <div className="input-field col s12">
-                <input
+                <input data-test="age-input"
                   onChange={this.onChange}
                   value={this.state.age}
                   error={errors.age}
@@ -153,7 +124,7 @@ class Register extends Component {
                 <span className="red-text"> {errors.age} </span>
               </div>
               <div className="input-field col s12">
-                <input
+                <input data-test="breed-input"
                   onChange={this.onChange}
                   value={this.state.breed}
                   error={errors.breed}
@@ -167,7 +138,7 @@ class Register extends Component {
                 <span className="red-text"> {errors.breed} </span>
               </div>
               <div className="input-field col s12">
-                <input
+                <input data-test="photo-input"
                   onChange={this.onPhotoChange}
                   error={errors.photo}
                   id="photo"
@@ -179,7 +150,7 @@ class Register extends Component {
                 <span className="red-text"> {errors.photo} </span>
               </div>
               <div className="input-field col s12">
-                <input
+                <input data-test="email-input"
                   onChange={this.onChange}
                   value={this.state.email}
                   error={errors.email}
@@ -193,7 +164,7 @@ class Register extends Component {
                 <span className="red-text"> {errors.email} </span>
               </div>
               <div className="input-field col s12">
-                <input
+                <input data-test="password-input"
                   onChange={this.onChange}
                   value={this.state.password}
                   error={errors.password}
@@ -207,7 +178,7 @@ class Register extends Component {
                 <span className="red-text"> {errors.password} </span>
               </div>
               <div className="input-field col s12">
-                <input
+                <input data-test="password2-input"
                   onChange={this.onChange}
                   value={this.state.password2}
                   error={errors.password2}
@@ -225,7 +196,7 @@ class Register extends Component {
                 style={{
                   paddingLeft: "11.250px",
                 }}>
-                <button
+                <button data-test="submit-button"
                   style={{
                     width: "150px",
                     borderRadius: "3px",

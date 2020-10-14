@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { showDogs, like, dislike } from "../../actions/dogActions";
-import { Link } from "react-router-dom";
 import "./Show.css";
 
 import dislike_img from "../../assets/dislike.svg";
