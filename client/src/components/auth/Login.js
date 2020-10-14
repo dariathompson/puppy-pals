@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { loginDog } from "../../actions/authActions";
 import classnames from "classnames";
 
-class Login extends Component {
+export class Login extends Component {
   constructor() {
     super();
     this.state = {
@@ -48,7 +48,7 @@ class Login extends Component {
     if (this.props.auth.isAuthenticated) return <Redirect to="/show" />;
 
     return (
-      <div className="container">
+      <div className="container" data-test="login-container">
         <div
           style={{
             marginTop: "4rem",
@@ -69,7 +69,7 @@ class Login extends Component {
             </div>
             <form noValidate onSubmit={this.onSubmit}>
               <div className="input-field col s12">
-                <input
+                <input data-test="username-input"
                   onChange={this.onChange}
                   value={this.state.username}
                   error={errors.username}
@@ -86,7 +86,7 @@ class Login extends Component {
                 </span>
               </div>
               <div className="input-field col s12">
-                <input
+                <input data-test="password-input"
                   onChange={this.onChange}
                   value={this.state.password}
                   error={errors.password}
@@ -107,7 +107,7 @@ class Login extends Component {
                 style={{
                   paddingLeft: "11.250px",
                 }}>
-                <button
+                <button data-test="submit-button"
                   style={{
                     width: "150px",
                     borderRadius: "3px",
