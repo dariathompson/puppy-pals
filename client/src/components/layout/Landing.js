@@ -5,7 +5,7 @@ import dog from '../../assets/bg_dog.png';
 class Landing extends Component {
   render() {
     return (
-      <div style={{ height: "calc(100vh-60px)"}}>
+      <div data-test="landing-container" style={{ height: "calc(100vh-60px)"}}>
           <div
           className="row"
           style={{ margin: "0", position: "absolute", bottom: "0" }}
