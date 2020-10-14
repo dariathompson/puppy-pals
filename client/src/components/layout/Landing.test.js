@@ -14,6 +14,20 @@ describe.only("Landing.js", () => {
     
         expect(landingContainer.length).toBe(1);
     });
+    describe("displays", () => {
+        test("image", () => {
+          const wrapper = setup();
+          const imageDog = findTestByAttr(wrapper, "image-dog");
+    
+          expect(imageDog.length).toBe(1);
+        });
+        test("title", () => {
+          const wrapper = setup();
+          const title = findTestByAttr(wrapper, "test-title");
+    
+          expect(title.length).toBe(1);
+        });
+      });
 });
 
 const findTestByAttr = (wrapper, value) => {
