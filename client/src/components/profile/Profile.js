@@ -6,7 +6,7 @@ import { logoutDog } from "../../actions/authActions";
 import { Link } from "react-router-dom";
 
 
-class Profile extends Component {
+export class Profile extends Component {
 
   onLogoutClick = (e) => {
     e.preventDefault();
