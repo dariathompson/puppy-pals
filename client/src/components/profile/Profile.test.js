@@ -2,6 +2,7 @@ import React from "react";
 import { shallow } from "enzyme";
 
 import { Profile } from "./Profile";
+import { findTestByAttr } from "../../testHelper"
 
 describe("Profile.js", () => {
   let logoutDog = jest.fn();
@@ -66,12 +67,3 @@ describe("Profile.js", () => {
     });
   });
 });
-
-
-const findTestByAttr = (wrapper, value) => {
-    return wrapper.find(`[data-test="${value}"]`);
-};
-
-
-
-

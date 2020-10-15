@@ -2,6 +2,7 @@ import React from "react";
 import { shallow } from "enzyme";
 
 import Landing from "./Landing";
+import { findTestByAttr } from "../../testHelper"
 
 describe.only("Landing.js", () => {
     const setup = () => {
@@ -29,7 +30,3 @@ describe.only("Landing.js", () => {
         });
       });
 });
-
-const findTestByAttr = (wrapper, value) => {
-    return wrapper.find(`[data-test="${value}"]`);
-};
