@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend
+          image: eu.gcr.io/puppy-pals-2020/backend:v1
+          envFrom:
+          - secretRef:
+              name: production-secret
+          ports:
+            - containerPort: 5000
+              name: nodejs-port
+  selector:
+    matchLabels:
+      app: backend
