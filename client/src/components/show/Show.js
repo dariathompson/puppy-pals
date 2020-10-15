@@ -8,7 +8,7 @@ import dislike_img from "../../assets/dislike.svg";
 import like_img from "../../assets/like.svg";
 
 
-class Show extends Component {
+export class Show extends Component {
   constructor() {
     super();
     this.state = { match: null };
@@ -56,13 +56,13 @@ class Show extends Component {
     if(this.props.dogs.dogs.length > 0){
       dogs = this.props.dogs.dogs.map((dog) => {
         return (
-          <div key={dog.username} className="card">
+          <div key={dog.username} className="card" data-test="show-card">
             <div className="col-6">
               <h4>
-              <img src={dog.photo} alt="Dog" width="300" />
-                <strong>{dog.name}</strong>, <small>{dog.age}</small>
+              <img data-test="photo-element" src={dog.photo} alt="Dog" width="300" />
+                <strong data-test="name-element">{dog.name}</strong>, <small data-test="age-element">{dog.age}</small>
               </h4>
-              <p>{dog.breed}</p>
+              <p data-test="breed-element">{dog.breed}</p>
               <hr className="new1"/>
               <div className="tinder--buttons">
                 <button
@@ -83,12 +83,12 @@ class Show extends Component {
         );
       });
     }else{
-      dogs = <div><h4>There is no one new around you</h4></div>
+      dogs = <div><h4 data-test="noone-message">There is no one new around you</h4></div>
     }
     
     return (
       
-      <div className="main-container">
+      <div className="main-container" data-test="show-container">
         { this.state.match && (
         <div className="match-container">
           <h2>Its a match</h2>
