@@ -15,18 +15,17 @@ export class Profile extends Component {
   render() {
 
     const { dog } = this.props.auth;
-    console.log(dog)
 
     return (
       <div data-test="profile-container" className="container valign-wrapper">
         <div className="row">
           <div className="col s12 center-align">
             <h4>
-              <b>Hey there,</b> {dog.name}
-              <p>age: {dog.age}</p>
-              <p>breed: {dog.breed}</p>
+              <div data-test="name-container"><b>Hey there,</b> {dog.name}</div>
+              <p data-test="age-element">age: {dog.age}</p>
+              <p data-test="breed-element">breed: {dog.breed}</p>
             </h4>
-            <img src={dog.photo} alt="You" width="300" />
+            <img data-test="photo-container" src={dog.photo} alt="You" width="300" />
             <div className="buttons">
               <Link
                 to="/show"
