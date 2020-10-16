@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { showMatches } from "../../actions/dogActions";
 import "./Matches.css";
 
-class Matches extends Component {
+export class Matches extends Component {
   componentDidMount = () => {
     this.showMatches();
   };
@@ -19,16 +19,15 @@ class Matches extends Component {
   }
 
   render() {
-    console.log(this.props)
     const matches = this.props.dogs.matches.map((match) => {
       return (
-        <div key={match.username} className="card hoverable">
+        <div key={match.username} className="card hoverable" data-test="match-card">
           <div className="col-6">
-            <img src={match.photo} alt="Match" width="300" />
+            <img data-test="photo-element" src={match.photo} alt="Match" width="300" />
             <h4>
-              <strong>{match.name}</strong>, <small>{match.age}</small>
+              <strong data-test="name-element">{match.name}</strong>, <small data-test="age-element">{match.age}</small>
             </h4>
-            <p>{match.breed}</p>
+            <p data-test="breed-element">{match.breed}</p>
             <a className="btn" href={"mailto:" + match.email}>
               Message
             </a>
@@ -37,7 +36,7 @@ class Matches extends Component {
       );
     });
     return (
-      <div className="main-container">
+      <div className="main-container" data-test="matches-container">
         <h1>Matches</h1>
         {matches}
       </div>

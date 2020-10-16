@@ -2,6 +2,7 @@ import React from "react";
 import { shallow } from "enzyme";
 
 import { Register } from "./Register";
+import { findTestByAttr } from "../../testHelper"
 
 describe("Register.js", () => {
     let registerDog = jest.fn();
@@ -200,7 +201,3 @@ describe("Register.js", () => {
       });
 });
 });
-
-const findTestByAttr = (wrapper, value) => {
-    return wrapper.find(`[data-test="${value}"]`);
-};
