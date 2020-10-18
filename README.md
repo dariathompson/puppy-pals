@@ -1,5 +1,7 @@
 # Puppy Pals
 
+Deployed to GKE [here](http://35.246.106.18/)
+
 Is your doggy feeling lonely, sad, or just missing that special somebody? 
 Why not get them on Puppy Pals and they'll be meeting that next adorable play date before you know it!
 
@@ -18,7 +20,7 @@ Match with other dogs based on their Size, Age, Breed and dashing good looks!
 
 Follow these steps to install the required dependencies:
 
-1. In the root of the project type the following in your terminal:
+1. From the root of the project, cd into server and type the following in your terminal:
 
 ```
 $ npm install
@@ -46,15 +48,18 @@ Once you have created a cluster, you will need to find what the connection URI i
 
 Click on connect when viewing your cluster and a model should pop up with 3 options. click on "Connect your application" to see your MongoURI.
 
-You will need to create an environment variable.
+To be able to store images you will need to create AWS S3 bucket.
 
-1. Create a .env file in the root of the project
+After that you will need to save secret keys as environment variables.
+
+1. Create a .env file in the server folder
 2. Create an Envrionment called ATLAS_URI with your MongoURI - Like this: ATLAS_URI="[ENTER_YOUR_MONGOURI_HERE]"
+3. Create environmental variables to have an access to your AWS bucket: AWS_BUCKET_NAME, AWS_REGION, AWS_BUCKET_URL
 
 
 ## Running the application
 
-To run the Server and application at the same time:
+To run the Server and application at the same time from the server folder run:
 
 ```
 $ npm run dev
@@ -83,3 +88,5 @@ It helps that we also both love Dogs!
 - Express
 - MongoDB
 - AWS S3
+- Docker
+- Kubernetes
