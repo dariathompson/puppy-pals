@@ -7,6 +7,9 @@ const saveDog = async (dog) => {
   const dogToSave = dog || {
     name: "Maxy",
     username: "maxy",
+    age: "1",
+    breed: "labrador",
+    photo: "https://lab.jpg",
     email: "maxy@default.com",
     password: "defaultPassword",
   };
