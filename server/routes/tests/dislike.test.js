@@ -1,10 +1,13 @@
-const { expect } = require("chai");
-const request = require("supertest");
+/* eslint-disable no-unused-expressions */
+/* eslint-disable no-sequences */
+/* eslint-disable no-undef */
+const { expect } = require('chai');
+const request = require('supertest');
 
-const { saveDog, generateToken } = require("./testHelpers");
-const app = require("../../server");
+const { saveDog, generateToken } = require('./testHelpers');
+const app = require('../../server');
 
-describe("Like route", async () => {
+describe('Like route', async () => {
   let dislikerDog;
   let token;
   let dislikeeDog;
@@ -12,28 +15,27 @@ describe("Like route", async () => {
     dislikerDog = await saveDog();
     token = await generateToken(dislikerDog.id);
     dislikeeInfo = {
-        name: "Kitty",
-        username: "kitty",
-        age: "2",
-        breed: "Pomeranian",
-        photo: "https://kitty.jpg",
-        email: "kitty@default.com",
-        password: "123456",
+      name: 'Kitty',
+      username: 'kitty',
+      age: '2',
+      breed: 'Pomeranian',
+      photo: 'https://kitty.jpg',
+      email: 'kitty@default.com',
+      password: '123456',
     },
     dislikeeDog = await saveDog(dislikeeInfo);
   });
-  it("likes a dog", async () => {
-
+  it('likes a dog', async () => {
     const dislikeData = {
-        dislikee: dislikeeDog.username,
-        disliker: dislikerDog.username,
-      };
+      dislikee: dislikeeDog.username,
+      disliker: dislikerDog.username,
+    };
 
     const response = await request(app)
-      .post(`/api/dogs/dislike`)
+      .post('/api/dogs/dislike')
       .set({
-        "Content-Type": "application/json",
-        "x-auth-token": token,
+        'Content-Type': 'application/json',
+        'x-auth-token': token,
       })
       .send(dislikeData);
 

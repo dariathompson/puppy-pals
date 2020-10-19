@@ -1,5 +1,6 @@
-const db = require("../../config/db");
-const app = require("../../server");
+/* eslint-disable no-undef */
+const db = require('../../config/db');
+const app = require('../../server');
 
 const PORT = 4777;
 let server;

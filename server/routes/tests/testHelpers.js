@@ -1,17 +1,19 @@
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+/* eslint-disable no-console */
+/* eslint-disable consistent-return */
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
-const Dog = require("../../models/Dog");
+const Dog = require('../../models/Dog');
 
 const saveDog = async (dog) => {
   const dogToSave = dog || {
-    name: "Maxy",
-    username: "maxy",
-    age: "1",
-    breed: "labrador",
-    photo: "https://lab.jpg",
-    email: "maxy@default.com",
-    password: "defaultPassword",
+    name: 'Maxy',
+    username: 'maxy',
+    age: '1',
+    breed: 'labrador',
+    photo: 'https://lab.jpg',
+    email: 'maxy@default.com',
+    password: 'defaultPassword',
   };
   try {
     const salt = await bcrypt.genSalt(10);
@@ -29,25 +31,24 @@ const saveDog = async (dog) => {
 };
 
 const generateToken = (id) => new Promise((resolve, reject) => {
-    const payload = {
-      dog: {
-        id,
-      },
-    };
-  
-    jwt.sign(
-      payload,
-      process.env.SECRET_JWT,
-      { expiresIn: 360000 },
-      (err, token) => {
-        if (err) { reject(err); }
-        resolve(token);
-      },
-    );
-  });
-  
+  const payload = {
+    dog: {
+      id,
+    },
+  };
+
+  jwt.sign(
+    payload,
+    process.env.SECRET_JWT,
+    { expiresIn: 360000 },
+    (err, token) => {
+      if (err) { reject(err); }
+      resolve(token);
+    },
+  );
+});
 
 module.exports = {
-    saveDog,
-    generateToken
-  };
+  saveDog,
+  generateToken,
+};

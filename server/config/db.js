@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const connectDB = async (uri) => {
   try {
@@ -14,18 +14,17 @@ const connectDB = async (uri) => {
 };
 
 const connect = () => {
-  if (process.env.NODE_ENV === "test") {
+  if (process.env.NODE_ENV === 'test') {
     return connectDB(process.env.ATLAS_TEST_URI).then(() => {
       console.log(`Connected to ${process.env.NODE_ENV} db`);
     }).catch((err) => console.log(err.message));
-  } else {
-    return connectDB(process.env.ATLAS_URI).then(() => {
-       console.log(`Connected to dev db`);
-      }).catch((err) => console.log(err.message));
   }
+  return connectDB(process.env.ATLAS_URI).then(() => {
+    console.log('Connected to dev db');
+  }).catch((err) => console.log(err.message));
 };
 
-const disconnect = () => {
+function disconnect() {
   try {
     mongoose.connection.close(() => {
       console.log(`Disconnected from ${process.env.NODE_ENV} db`);
@@ -34,7 +33,7 @@ const disconnect = () => {
   } catch (err) {
     console.error(err);
   }
-};
+}
 
 const cleanDatabase = async () => {
   try {
