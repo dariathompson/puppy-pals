@@ -21,7 +21,13 @@ app.use(
 app.use(bodyParser.json({limit: '50mb', type: 'application/json'}));
 
 // DB Config
-const db = process.env.ATLAS_URI;
+let db;
+if (process.env.NODE_ENV === "test"){
+    db = process.env.ATLAS_TEST_URI;
+}else{
+    db = process.env.ATLAS_URI;
+}
+
 // Connect to MongoDB
 mongoose
     .connect(
@@ -30,7 +36,7 @@ mongoose
             useUnifiedTopology: true
         }
     )
-    .then(() => console.log("MongoDB successfully connected"))
+    .then(() => console.log(`MongoDB ${process.env.NODE_ENV} successfully connected`))
     .catch(err => console.log(err));
 
 // Passport middleware
@@ -43,3 +49,5 @@ app.use("/api/dogs", dogs);
 
 const port = process.env.PORT || 5000; // process.env.port is Heroku's port if you choose to deploy the app there
 app.listen(port, () => console.log(`Server up and running on port ${port} !`));
+
+module.exports = app;
