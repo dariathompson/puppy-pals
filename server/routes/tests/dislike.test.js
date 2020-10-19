@@ -5,13 +5,13 @@ const { saveDog, generateToken } = require("./testHelpers.test");
 const app = require("../../server");
 
 describe("Like route", async () => {
-  let likerDog;
+  let dislikerDog;
   let token;
-  let likeeDog;
+  let dislikeeDog;
   beforeEach(async () => {
-    likerDog = await saveDog();
-    token = await generateToken(likerDog.id);
-    likeeInfo = {
+    dislikerDog = await saveDog();
+    token = await generateToken(dislikerDog.id);
+    dislikeeInfo = {
         name: "Kitty",
         username: "kitty",
         age: "2",
@@ -20,22 +20,22 @@ describe("Like route", async () => {
         email: "kitty@default.com",
         password: "123456",
     },
-    likeeDog = await saveDog(likeeInfo);
+    dislikeeDog = await saveDog(dislikeeInfo);
   });
   it("likes a dog", async () => {
 
-    const likeData = {
-        likee: likeeDog.username,
-        liker: likerDog.username,
+    const dislikeData = {
+        dislikee: dislikeeDog.username,
+        disliker: dislikerDog.username,
       };
 
     const response = await request(app)
-      .post(`/api/dogs/like`)
+      .post(`/api/dogs/dislike`)
       .set({
         "Content-Type": "application/json",
         "x-auth-token": token,
       })
-      .send(likeData);
+      .send(dislikeData);
 
     expect(response.statusCode).to.equal(200);
   });
