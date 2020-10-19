@@ -1,7 +1,7 @@
 const { expect } = require("chai");
 const request = require("supertest");
 
-const { saveDog } = require("./testHelpers.test.js");
+const { saveDog } = require("./testHelpers.js");
 
 const app = require("../../server");
 

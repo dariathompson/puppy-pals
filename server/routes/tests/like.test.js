@@ -1,7 +1,7 @@
 const { expect } = require("chai");
 const request = require("supertest");
 
-const { saveDog, generateToken } = require("./testHelpers.test");
+const { saveDog, generateToken } = require("./testHelpers");
 const app = require("../../server");
 
 describe("Like route", async () => {
