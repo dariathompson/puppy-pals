@@ -9,10 +9,10 @@ Match with other dogs based on their Size, Age, Breed and dashing good looks!
 
 ## Table of content
 
+- [Tech stack](#tech-stack)
 - [Installation](#installation)
 - [Database](#database)
 - [Running the application](#running-the-application)
-- [Tech stack](#tech-stack)
 
 ## Tech stack
 
