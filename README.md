@@ -14,6 +14,19 @@ Match with other dogs based on their Size, Age, Breed and dashing good looks!
 - [Running the application](#running-the-application)
 - [Tech stack](#tech-stack)
 
+## Tech stack
+
+- JavaScript
+- React
+- Redux
+- Node
+- Express
+- MongoDB
+- AWS S3
+- Docker
+- Kubernetes
+- GKE
+
 ## Installation
 
 ### Backend
@@ -78,15 +91,3 @@ The aim of this project was to work together to build our skills on the MERN Sta
 Both being newcomers to MongoDB and NoSQL we saw this as the perfect opportunity to cover some knowledge gaps on some of widely used technology. 
 
 It helps that we also both love Dogs!
-
-## Tech stack
-
-- JavaScript
-- React
-- Redux
-- Node
-- Express
-- MongoDB
-- AWS S3
-- Docker
-- Kubernetes
